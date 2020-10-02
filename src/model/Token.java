@@ -1,4 +1,4 @@
 package model;
 
-public class Token {
+public abstract class Token {
 }

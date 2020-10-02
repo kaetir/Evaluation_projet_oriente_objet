@@ -21,9 +21,10 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-        System.out.println("Hello?");
+        System.out.println("Bip Boop Init");
 
-        Map mapster = new Map(20, 10, 3, 2);
-        mapster.printMap();
+        Controller controller = new Controller();
+
+        controller.start();
     }
 }
