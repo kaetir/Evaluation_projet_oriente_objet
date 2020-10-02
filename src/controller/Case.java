@@ -1,17 +1,17 @@
 package controller;
 
 public class Case {
-    protected Pion pion = null;
+    protected Token token = null;
 
     public Case() {
 
     }
 
-    public void setPion(Pion pion) {
-        this.pion = pion;
+    public void setToken(Token token) {
+        this.token = token;
     }
 
-    public Pion getPion() {
-        return pion;
+    public Token getToken() {
+        return token;
     }
 }

@@ -1,4 +1,4 @@
 package controller;
 
-public class Mechant extends Individu {
+public class Mechant extends Individual {
 }
