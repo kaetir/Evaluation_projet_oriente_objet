@@ -7,23 +7,27 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import model.*;
+import view.DisplayController;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../view/view.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 1200, 800));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/view.fxml"));
+        Parent root = fxmlLoader.load();
+        primaryStage.setTitle("Team aux niais");
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
+        DisplayController dController = fxmlLoader.getController();
+
+        Map mapster = new Map(15, 15, 3, 2);
+        dController.drawMap(mapster);
+
     }
 
 
     public static void main(String[] args) {
         launch(args);
-        System.out.println("Hello?");
-
-        Map mapster = new Map(20, 10, 3, 2);
-        mapster.printMap();
     }
 }

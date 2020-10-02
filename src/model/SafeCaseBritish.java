@@ -1,5 +1,10 @@
 package model;
 
-public class SafeCaseBritish extends Case {
+import javafx.scene.paint.Color;
 
+public class SafeCaseBritish extends SafeCase {
+
+    public SafeCaseBritish() {
+        setColor(Color.BLUEVIOLET);
+    }
 }

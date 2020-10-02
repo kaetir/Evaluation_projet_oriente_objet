@@ -99,4 +99,8 @@ public class Map {
         }
         System.out.println("-");
     }
+
+    public ArrayList<ArrayList<Case>> getMap() {
+        return map;
+    }
 }
