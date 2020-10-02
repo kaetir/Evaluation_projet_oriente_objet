@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 public class Case {
     protected Token token = null;
