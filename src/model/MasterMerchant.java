@@ -1,4 +1,4 @@
 package model;
 
-public class MasterMerchant extends Marchand {
+public class MasterMerchant extends Merchant {
 }

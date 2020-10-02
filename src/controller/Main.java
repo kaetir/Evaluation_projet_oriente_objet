@@ -23,14 +23,7 @@ public class Main extends Application {
         launch(args);
         System.out.println("Hello?");
 
-        Individual a = new Pirate();
-        Individual b = new MasterPirate();
-
-        System.out.println(a instanceof Mechant);
-        System.out.println(a instanceof Good);
-        System.out.println(a instanceof Pirate);
-        System.out.println(a instanceof MasterPirate);
-        System.out.println(b instanceof Pirate);
-        // Ptet j'ai pas fait attention,  mais super utile!
+        Map mapster = new Map(20, 10, 3, 2);
+        mapster.printMap();
     }
 }
