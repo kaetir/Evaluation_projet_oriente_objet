@@ -1,4 +1,4 @@
 package controller;
 
-public class MaitreMarchand extends GoodGuys {
+public class MaitreMarchand extends Marchand {
 }
