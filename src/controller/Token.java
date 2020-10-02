@@ -1,4 +1,4 @@
 package controller;
 
-public class Pion {
+public class Token {
 }
