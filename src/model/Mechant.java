@@ -1,4 +1,4 @@
 package model;
 
-public class Mechant extends Individual {
+public abstract class Mechant extends Individual {
 }

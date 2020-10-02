@@ -1,4 +1,4 @@
 package model;
 
-public class Good extends Individual {
+public abstract class Good extends Individual {
 }

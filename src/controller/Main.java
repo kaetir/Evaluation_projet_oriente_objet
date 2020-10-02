@@ -29,5 +29,10 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+        System.out.println("Bip Boop Init");
+
+        Controller controller = new Controller();
+
+        controller.start(); // Starting
     }
 }
