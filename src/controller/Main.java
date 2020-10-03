@@ -31,7 +31,7 @@ public class Main extends Application {
         launch(args);
         System.out.println("Bip Boop Init");
 
-        Controller controller = new Controller();
+        Controller controller = Controller.getInstance();
 
         controller.start(); // Starting
     }
