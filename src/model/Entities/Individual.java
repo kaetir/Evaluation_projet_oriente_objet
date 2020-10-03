@@ -1,6 +1,7 @@
-package model;
+package model.Entities;
 
 import java.util.ArrayList;
+import model.Token;
 
 public abstract class Individual extends Token {
 

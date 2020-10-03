@@ -4,7 +4,7 @@ import javafx.scene.canvas.*;
 import javafx.scene.canvas.Canvas;
 import javafx.fxml.FXML;
 import javafx.scene.paint.Color;
-import model.*;
+import model.Map.*;
 
 import java.util.ArrayList;
 

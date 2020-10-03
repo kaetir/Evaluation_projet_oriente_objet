@@ -1,10 +1,13 @@
-package model;
+package model.Map;
 
-import java.time.chrono.MinguoEra;
+
 import java.util.ArrayList;
+import model.*;
+import model.Entities.*;
 
 public class Map {
-    static private int defaultSafeZone = 2;
+
+    static private final int defaultSafeZone = 2;
 
     private ArrayList<ArrayList<Case>> map;
 

@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import model.*;
+import model.Map.*;
 import view.DisplayController;
 
 public class Main extends Application {

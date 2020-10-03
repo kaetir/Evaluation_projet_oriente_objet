@@ -1,4 +1,4 @@
-package model;
+package model.Map;
 
 import javafx.scene.paint.Color;
 

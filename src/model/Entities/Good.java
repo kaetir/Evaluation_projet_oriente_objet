@@ -1,4 +1,4 @@
-package model;
+package model.Entities;
 
 public abstract class Good extends Individual {
 }

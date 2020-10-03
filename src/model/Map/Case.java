@@ -1,5 +1,7 @@
-package model;
+package model.Map;
 
+
+import model.*;
 import javafx.scene.paint.Color;
 
 
