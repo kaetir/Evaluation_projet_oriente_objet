@@ -7,4 +7,9 @@ public class Merchant extends Good {
         this.goods.add("Clothes");
         this.goods.add("Tea");
     }
+
+    @Override
+    public char getPrintable() {
+        return 'm';
+    }
 }

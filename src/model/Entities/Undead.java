@@ -7,4 +7,9 @@ public class Undead extends Mechant {
         this.goods.add("Ashen Skull");
         this.goods.add("Trident");
     }
+
+    @Override
+    public char getPrintable() {
+        return 'u';
+    }
 }

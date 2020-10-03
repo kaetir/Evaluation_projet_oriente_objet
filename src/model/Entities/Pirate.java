@@ -7,4 +7,9 @@ public class Pirate extends Mechant {
         this.goods.add("Beer");
         this.goods.add("Absinth");
     }
+
+    @Override
+    public char getPrintable() {
+        return 'p';
+    }
 }

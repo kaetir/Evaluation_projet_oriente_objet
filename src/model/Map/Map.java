@@ -2,7 +2,7 @@ package model.Map;
 
 
 import java.util.ArrayList;
-import model.*;
+
 import model.Entities.*;
 
 public class Map {
@@ -14,17 +14,18 @@ public class Map {
     public Map(int width, int height, int safeZoneWidth, int safeZoneHeight) {
         this.map = new ArrayList<ArrayList<Case>>();
 
+        // Minimum Values
         if (safeZoneWidth < Map.defaultSafeZone) {
             safeZoneWidth = Map.defaultSafeZone;
         }
         if (safeZoneHeight < Map.defaultSafeZone) {
             safeZoneHeight = Map.defaultSafeZone;
         }
-        if (width < 2 * safeZoneWidth) {
-            width = 2 * safeZoneWidth;
+        if (width < 4 * safeZoneWidth) {
+            width = 4 * safeZoneWidth;
         }
-        if (height < 2 * safeZoneHeight) {
-            height = 2 * safeZoneHeight;
+        if (height < 4 * safeZoneHeight) {
+            height = 4 * safeZoneHeight;
         }
 
         // Generating Map
@@ -62,35 +63,9 @@ public class Map {
             for (int i = 0; i < this.map.size(); i++) {
                 Case tempCase = this.map.get(i).get(j);
                 if (tempCase.getToken() == null) {
-                    if (tempCase instanceof SafeCaseBritish
-                        || tempCase instanceof SafeCaseMerchant
-                        || tempCase instanceof SafeCasePirate
-                        || tempCase instanceof SafeCaseUndead) {
-                        System.out.print(":");
-                    } else {
-                        System.out.print(".");
-                    }
+                    System.out.print(tempCase.getPrintable());
                 } else {
-                    Token tempToken = tempCase.getToken();
-                    if (tempToken instanceof MasterBritish) {
-                        System.out.print("B");
-                    } else if (tempToken instanceof MasterMerchant) {
-                        System.out.print("M");
-                    } else if (tempToken instanceof MasterPirate) {
-                        System.out.print("P");
-                    } else if (tempToken instanceof MasterUndead) {
-                        System.out.print("U");
-                    } else if (tempToken instanceof British) {
-                        System.out.print("b");
-                    } else if (tempToken instanceof Merchant) {
-                        System.out.print("m");
-                    } else if (tempToken instanceof Pirate) {
-                        System.out.print("p");
-                    } else if (tempToken instanceof Undead) {
-                        System.out.print("u");
-                    } else {
-                        System.out.print("?");
-                    }
+                    System.out.print(tempCase.getToken().getPrintable());
                 }
             }
 

@@ -1,8 +1,8 @@
 package model.Map;
 
 
-import model.*;
 import javafx.scene.paint.Color;
+import model.Token;
 
 
 public class Case {
@@ -12,6 +12,10 @@ public class Case {
 
     public Case() {
 
+    }
+
+    public char getPrintable() {
+        return '.';
     }
 
     public Color getColor() {

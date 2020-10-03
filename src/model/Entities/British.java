@@ -7,4 +7,9 @@ public class British extends Good {
         this.goods.add("Silver");
         this.goods.add("Copper");
     }
+
+    @Override
+    public char getPrintable() {
+        return 'b';
+    }
 }
