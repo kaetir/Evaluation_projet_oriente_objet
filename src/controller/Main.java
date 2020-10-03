@@ -32,8 +32,7 @@ public class Main extends Application {
         launch(args);
         System.out.println("Bip Boop Init");
 
-        Controller controller = Controller.getInstance();
-
-        controller.start(); // Starting
+        Map tes = new Map();
+        tes.printMap();
     }
 }

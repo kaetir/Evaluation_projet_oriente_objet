@@ -4,22 +4,23 @@ package model.Map;
 import java.util.ArrayList;
 
 import model.Entities.*;
+import model.Obstacle;
 
 public class Map {
 
-    static private final int defaultSafeZone = 2;
+    static private final int minimumSafeZone = 2;
 
     private ArrayList<ArrayList<Case>> map;
 
-    public Map(int width, int height, int safeZoneWidth, int safeZoneHeight) {
+    private void generateMap(int width, int height, int safeZoneWidth, int safeZoneHeight, double randomObstacleChance) {
         this.map = new ArrayList<ArrayList<Case>>();
 
         // Minimum Values
-        if (safeZoneWidth < Map.defaultSafeZone) {
-            safeZoneWidth = Map.defaultSafeZone;
+        if (safeZoneWidth < Map.minimumSafeZone) {
+            safeZoneWidth = Map.minimumSafeZone;
         }
-        if (safeZoneHeight < Map.defaultSafeZone) {
-            safeZoneHeight = Map.defaultSafeZone;
+        if (safeZoneHeight < Map.minimumSafeZone) {
+            safeZoneHeight = Map.minimumSafeZone;
         }
         if (width < 4 * safeZoneWidth) {
             width = 4 * safeZoneWidth;
@@ -41,13 +42,36 @@ public class Map {
                 } else if (i >= width - safeZoneWidth && j >= height - safeZoneHeight) {
                     column.add(new SafeCaseMerchant());
                 } else {
-                    column.add(new Case());
+                    Case tempCase = new Case();
+                    if (Math.random() < randomObstacleChance) tempCase.setToken(new Obstacle());
+                    column.add(tempCase);
                 }
             }
             this.map.add(column);
         }
     }
 
+    public Map(int width, int height, int safeZoneWidth, int safeZoneHeight) {
+        this.generateMap(width, height, safeZoneWidth, safeZoneHeight, 0.05);
+    }
+    public Map() {
+        this.generateMap(12, 8, 3, 2, 0.05);
+    }
+
+    public ArrayList<Case> getAdjacentCases(int x, int y) {
+        ArrayList<Case> arrayCases = new ArrayList<Case>();
+        return arrayCases;
+    }
+
+    public Case getCase(int x, int y) {
+        if (x < 0 || y < 0 || x >= this.map.size() || y >= this.map.get(0).size()) return null;
+        return this.map.get(x).get(y);
+    }
+/*
+    public int[] getSafeZoneDirection(Individual token) {
+        if (token instanceof British) return {-1,-1};
+    }
+*/
     public void printMap() {
         /*
             Print Map with ASCII Characters
