@@ -29,23 +29,38 @@ public class Map {
             height = 4 * safeZoneHeight;
         }
 
+        // Reset Masters
+        MasterBritish.getInstance().reset();
+        MasterUndead.getInstance().reset();
+        MasterPirate.getInstance().reset();
+        MasterMerchant.getInstance().reset();
+
         // Generating Map
         for (int i = 0; i < width; i++) {
             ArrayList<Case> column = new ArrayList<Case>();
             for (int j = 0; j < height; j++) {
+                Case tempCase;
                 if (i < safeZoneWidth && j < safeZoneHeight) {
-                    column.add(new SafeCaseBritish());
+                    tempCase = new SafeCaseBritish();
+                    if (i == 0 && j == 0) tempCase.setToken(MasterBritish.getInstance());
+
                 } else if (i >= width - safeZoneWidth && j < safeZoneHeight) {
-                    column.add(new SafeCaseUndead());
+                    tempCase = new SafeCaseUndead();
+                    if (i == width - 1 && j == 0) tempCase.setToken(MasterUndead.getInstance());
+
                 } else if (i < safeZoneWidth && j >= height - safeZoneHeight) {
-                    column.add(new SafeCasePirate());
+                    tempCase = new SafeCasePirate();
+                    if (i == 0 && j == height - 1) tempCase.setToken(MasterPirate.getInstance());
+
                 } else if (i >= width - safeZoneWidth && j >= height - safeZoneHeight) {
-                    column.add(new SafeCaseMerchant());
+                    tempCase = new SafeCaseMerchant();
+                    if (i == width - 1 && j == height - 1) tempCase.setToken(MasterMerchant.getInstance());
+
                 } else {
-                    Case tempCase = new Case();
+                    tempCase = new Case();
                     if (Math.random() < randomObstacleChance) tempCase.setToken(new Obstacle());
-                    column.add(tempCase);
                 }
+                column.add(tempCase);
             }
             this.map.add(column);
         }

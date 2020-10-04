@@ -1,11 +1,12 @@
 package model.Entities;
 
+import java.util.Collections;
+
 public class Merchant extends Good {
+    public static final String[] merchantGoods = {"Wood", "Clothes", "Tea"};
 
     public Merchant() {
-        this.goods.add("Wood");
-        this.goods.add("Clothes");
-        this.goods.add("Tea");
+        Collections.addAll(this.goods, Merchant.merchantGoods);
     }
 
     @Override

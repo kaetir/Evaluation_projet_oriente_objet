@@ -1,11 +1,12 @@
 package model.Entities;
 
+import java.util.Collections;
+
 public class Undead extends Mechant {
+    public static final String[] undeadGoods = {"Ashen Skulls", "Tridents", "Souls"};
 
     public Undead() {
-        this.goods.add("Treasure Chest");
-        this.goods.add("Ashen Skull");
-        this.goods.add("Trident");
+        Collections.addAll(this.goods, Undead.undeadGoods);
     }
 
     @Override

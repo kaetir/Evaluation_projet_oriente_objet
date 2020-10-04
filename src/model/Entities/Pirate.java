@@ -1,11 +1,12 @@
 package model.Entities;
 
+import java.util.Collections;
+
 public class Pirate extends Mechant {
+    public static final String[] pirateGoods = {"Rhum", "Absinth", "Grog"};
 
     public Pirate() {
-        this.goods.add("Rhum");
-        this.goods.add("Beer");
-        this.goods.add("Absinth");
+        Collections.addAll(this.goods, Pirate.pirateGoods);
     }
 
     @Override
