@@ -25,7 +25,6 @@ public class Main extends Application {
         Controller controller = Controller.getInstance();
         controller.setDisplayController(dController);
 
-        controller.step();
 
 
     }

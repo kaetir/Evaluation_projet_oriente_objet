@@ -15,7 +15,9 @@ public class Case {
     }
 
     public char getPrintable() {
-        return '.';
+        if(this.getToken() == null)
+            return '.';
+        return this.getToken().getPrintable();
     }
 
     public Color getColor() {

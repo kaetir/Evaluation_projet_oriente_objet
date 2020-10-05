@@ -7,10 +7,12 @@ public class SafeCase extends Case {
     public SafeCase() {
     }
 
-    @Override
     public char getPrintable() {
-        return ':';
+        if(this.getToken() == null)
+            return ':';
+        return this.getToken().getPrintable();
     }
+
 
     public void setColor(Color c) {
         this.color = c;

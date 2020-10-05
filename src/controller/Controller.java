@@ -31,7 +31,7 @@ public class Controller {
         if (this.started) return;
 
         // Creating the map
-        map = new Map(mapWidth, mapHeight, safeZoneWidth, safeZoneHeight);
+        // map = new Map(mapWidth, mapHeight, safeZoneWidth, safeZoneHeight);
 
         this.started = true;
         this.paused = false;
@@ -66,8 +66,8 @@ public class Controller {
     }
 
     public void step(){
-        drawMap();
         printMap();
+        drawMap();
     }
 
 

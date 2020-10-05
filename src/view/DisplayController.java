@@ -99,6 +99,9 @@ public class DisplayController {
                 g.fillRect(x, y, h, w);
                 y += w;
                 //g.strokeText(String.valueOf((int)Math.ceil(y/w)-1)+ "," + String.valueOf((int)Math.ceil(x/h)), x, y);
+
+                g.strokeText(String.valueOf(c.getPrintable()), x, y);
+
             }
             x += h;
             y = 0;
