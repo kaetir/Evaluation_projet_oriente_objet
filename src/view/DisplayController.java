@@ -79,8 +79,8 @@ public class DisplayController {
         GraphicsContext g = canvas.getGraphicsContext2D();
 
 
-        Double width  = g.getCanvas().getWidth();
-        Double height = g.getCanvas().getHeight();
+        Double width  = g.getCanvas().getHeight();
+        Double height = g.getCanvas().getWidth();
 
         g.clearRect(0,0, width, height);
 
@@ -90,13 +90,12 @@ public class DisplayController {
         double w = width / map.getMap().get(0).size();
         double h = height / map.getMap().size();
 
-
         for (ArrayList<Case> line: map.getMap()) {
             // draw horizontal lines
             for (Case c : line) {
                 // draw vertical lines
                 g.setFill(c.getColor());
-                g.fillRect(x, y, w, h*2);
+                g.fillRect(x, y, h, w);
                 y += w;
                 //g.strokeText(String.valueOf((int)Math.ceil(y/w)-1)+ "," + String.valueOf((int)Math.ceil(x/h)), x, y);
             }

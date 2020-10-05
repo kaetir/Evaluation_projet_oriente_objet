@@ -16,7 +16,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="786.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.DisplayController">
+<VBox prefHeight="878.0" prefWidth="1318.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.DisplayController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <!--menus>
@@ -89,11 +89,11 @@
                      </children></VBox>
           </children>
         </AnchorPane>
-        <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
+        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="-1.0" prefWidth="-1.0">
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0">
                      <children>
-                        <Canvas id="canvas" fx:id="canvas" height="600.0" layoutX="69.0" layoutY="95.0" width="600.0" AnchorPane.bottomAnchor="-95.0" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="-69.0" AnchorPane.topAnchor="95.0" />
+                        <Canvas id="canvas" fx:id="canvas" height="600.0" layoutX="45.0" layoutY="89.0" width="800.0" />
                      </children>
             </AnchorPane>
           </content>
