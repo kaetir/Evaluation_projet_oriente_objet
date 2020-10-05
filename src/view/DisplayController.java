@@ -1,11 +1,10 @@
 package view;
 
+import controller.Controller;
 import javafx.scene.canvas.*;
 import javafx.scene.canvas.Canvas;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
 import model.Map.*;
 import java.util.Random;
 
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 public class DisplayController {
 
     private boolean started = false;
+    private Controller controller;
 
     private static int getRandomNumberInRange(int min, int max) {
         if (min >= max) {
@@ -39,8 +39,8 @@ public class DisplayController {
         seedText.setText(String.valueOf(getRandomNumberInRange(1,123465789)));
     }
 
-    public void createGrid(){
-        GraphicsContext g = canvas.getGraphicsContext2D();
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 
     public void startSimulation(){
@@ -68,6 +68,7 @@ public class DisplayController {
     public void step(){
         System.out.println("Clic on step");
         // TODO step over one generation
+        controller.step();
     }
 
     public void reset(){
@@ -79,8 +80,8 @@ public class DisplayController {
         GraphicsContext g = canvas.getGraphicsContext2D();
 
 
-        Double width  = g.getCanvas().getHeight();
-        Double height = g.getCanvas().getWidth();
+        double width  = g.getCanvas().getHeight();
+        double height = g.getCanvas().getWidth();
 
         g.clearRect(0,0, width, height);
 

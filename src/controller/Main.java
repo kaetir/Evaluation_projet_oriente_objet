@@ -22,8 +22,11 @@ public class Main extends Application {
 
         DisplayController dController = fxmlLoader.getController();
 
-        Map mapster = new Map(35, 15, 3, 3);
-        dController.drawMap(mapster);
+        Controller controller = Controller.getInstance();
+        controller.setDisplayController(dController);
+
+        controller.step();
+
 
     }
 
@@ -32,7 +35,5 @@ public class Main extends Application {
         launch(args);
         System.out.println("Bip Boop Init");
 
-        Map tes = new Map();
-        tes.printMap();
     }
 }
