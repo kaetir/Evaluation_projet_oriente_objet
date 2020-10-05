@@ -3,26 +3,86 @@ package view;
 import javafx.scene.canvas.*;
 import javafx.scene.canvas.Canvas;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import model.Map.*;
+import java.util.Random;
 
 import java.util.ArrayList;
 
 
 public class DisplayController {
 
+    private boolean started = false;
+
+    private static int getRandomNumberInRange(int min, int max) {
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+    }
+
     @FXML
     private Canvas canvas;
+
+    @FXML
+    private TextField seedText;
+
+    public Integer getSeed() {
+        System.out.println(seedText.getText());
+        return Integer.parseInt( seedText.getText());
+    }
+
+    public void genRandomSeed(){
+        seedText.setText(String.valueOf(getRandomNumberInRange(1,123465789)));
+    }
 
     public void createGrid(){
         GraphicsContext g = canvas.getGraphicsContext2D();
     }
 
+    public void startSimulation(){
+        System.out.println("Clic on start");
+        if (!started){
+            try{
+                getSeed();
+            } catch (Exception e){
+                genRandomSeed();
+                getSeed();
+            }
+            started = true;
+        }else{
+            // TODO Lancer la simulation en auto
+        }
+
+    }
+
+
+    public void pause(){
+        System.out.println("Clic on pause");
+        // TODO pause the simulation il in autorun.
+    }
+
+    public void step(){
+        System.out.println("Clic on step");
+        // TODO step over one generation
+    }
+
+    public void reset(){
+        System.out.println("Clic on reset");
+        // TODO Reset the simulation - prepare to restart
+    }
+
     public void drawMap(Map map){
         GraphicsContext g = canvas.getGraphicsContext2D();
 
+
         Double width  = g.getCanvas().getWidth();
         Double height = g.getCanvas().getHeight();
+
+        g.clearRect(0,0, width, height);
 
         // Draw the grid
         double x=0.;
@@ -35,25 +95,12 @@ public class DisplayController {
             // draw horizontal lines
             for (Case c : line) {
                 // draw vertical lines
-                if (c instanceof SafeCase){
-                    if(c instanceof SafeCaseBritish){
-                        g.setFill(Color.BLUEVIOLET);
-                    }else if(c instanceof SafeCaseMerchant){
-                        g.setFill(Color.GREEN);
-                    }else if(c instanceof SafeCasePirate) {
-                        g.setFill(Color.BLACK);
-                    }else if(c instanceof SafeCaseUndead){
-                        g.setFill(Color.DARKGRAY);
-                    }
-                }else{
-                    g.setFill(Color.AQUA);
-                }
-
-                g.fillRect(x,y, w, h);
-                y += h;
-                // g.strokeText(String.valueOf(y).substring(0,1), x, y);
+                g.setFill(c.getColor());
+                g.fillRect(x, y, w, h*2);
+                y += w;
+                //g.strokeText(String.valueOf((int)Math.ceil(y/w)-1)+ "," + String.valueOf((int)Math.ceil(x/h)), x, y);
             }
-            x += w;
+            x += h;
             y = 0;
         }
 

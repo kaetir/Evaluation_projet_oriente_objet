@@ -22,7 +22,7 @@ public class Main extends Application {
 
         DisplayController dController = fxmlLoader.getController();
 
-        Map mapster = new Map(15, 15, 3, 2);
+        Map mapster = new Map(20, 15, 3, 4);
         dController.drawMap(mapster);
 
     }
