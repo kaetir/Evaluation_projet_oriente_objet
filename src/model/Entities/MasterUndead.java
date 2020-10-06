@@ -21,7 +21,7 @@ public class MasterUndead extends Undead {
 
     @Override
     public String getImage() {
-        return super.getImage();
+        return "master_undead";
     }
 
 }

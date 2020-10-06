@@ -21,6 +21,7 @@ public class MasterBritish extends British {
 
     @Override
     public String getImage() {
-        return super.getImage();
+        return "master_british";
     }
+
 }
