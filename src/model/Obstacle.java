@@ -5,4 +5,9 @@ public class Obstacle extends Token {
     public char getPrintable() {
         return 'O';
     }
+
+    @Override
+    public String getImage() {
+        return "island";
+    }
 }

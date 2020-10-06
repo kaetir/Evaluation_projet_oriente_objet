@@ -31,4 +31,9 @@ public class Case {
     public Token getToken() {
         return token;
     }
+
+    public boolean hasToken() {
+        return token != null;
+    }
+    
 }

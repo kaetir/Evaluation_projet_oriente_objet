@@ -18,4 +18,9 @@ public class MasterBritish extends British {
     public char getPrintable() {
         return 'B';
     }
+
+    @Override
+    public String getImage() {
+        return super.getImage();
+    }
 }

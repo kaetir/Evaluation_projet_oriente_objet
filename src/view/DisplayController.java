@@ -98,9 +98,13 @@ public class DisplayController {
                 g.setFill(c.getColor());
                 g.fillRect(x, y, h, w);
                 y += w;
-                //g.strokeText(String.valueOf((int)Math.ceil(y/w)-1)+ "," + String.valueOf((int)Math.ceil(x/h)), x, y);
 
-                g.strokeText(String.valueOf(c.getPrintable()), x, y);
+                // g.strokeText(String.valueOf((int)Math.ceil(y/w)-1)+ "," + String.valueOf((int)Math.ceil(x/h)), x, y);
+                //g.strokeText(String.valueOf(c.getPrintable()), x, y);
+                // g.drawImage(Sprite.load(Sprite.map.get("island")), 10, 10);
+                if( c.hasToken() ){
+                    g.drawImage(Sprite.load(Sprite.map.get(c.getToken().getImage()), h,w), x, y-w);
+                }
 
             }
             x += h;
@@ -120,6 +124,7 @@ public class DisplayController {
             double wld = wl* xl;
             g.strokeLine(0, wld , height, wld);
         }
+
 
 
     }

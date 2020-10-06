@@ -18,4 +18,9 @@ public class MasterMerchant extends Merchant {
     public char getPrintable() {
         return 'M';
     }
+
+    @Override
+    public String getImage() {
+        return super.getImage();
+    }
 }

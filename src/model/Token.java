@@ -8,4 +8,13 @@ public abstract class Token {
          */
         return '?';
     }
+
+    public String getImage() {
+        /*
+        Return a the reference in the Sprite map depending on the token, must be override
+        otherwise a 'Poop' will appear
+         */
+
+        return "default";
+    }
 }

@@ -18,4 +18,9 @@ public class MasterPirate extends Pirate {
     public char getPrintable() {
         return 'P';
     }
+
+    @Override
+    public String getImage() {
+        return super.getImage();
+    }
 }

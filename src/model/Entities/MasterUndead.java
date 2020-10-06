@@ -18,4 +18,10 @@ public class MasterUndead extends Undead {
     public char getPrintable() {
         return 'U';
     }
+
+    @Override
+    public String getImage() {
+        return super.getImage();
+    }
+
 }
