@@ -14,4 +14,9 @@ public class Undead extends Mechant {
     public char getPrintable() {
         return 'u';
     }
+
+    @Override
+    public String getImage() {
+        return "boat_undead";
+    }
 }

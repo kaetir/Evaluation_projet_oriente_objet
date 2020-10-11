@@ -14,4 +14,9 @@ public class Pirate extends Mechant {
     public char getPrintable() {
         return 'p';
     }
+
+    @Override
+    public String getImage() {
+        return "boat_pirate";
+    }
 }

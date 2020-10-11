@@ -14,4 +14,9 @@ public class Merchant extends Good {
     public char getPrintable() {
         return 'm';
     }
+
+    @Override
+    public String getImage() {
+        return "boat_merchant";
+    }
 }

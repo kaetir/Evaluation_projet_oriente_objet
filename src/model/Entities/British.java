@@ -14,4 +14,9 @@ public class British extends Good {
     public char getPrintable() {
         return 'b';
     }
+
+    @Override
+    public String getImage() {
+        return "boat_british";
+    }
 }
