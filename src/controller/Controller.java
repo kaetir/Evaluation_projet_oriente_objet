@@ -53,6 +53,7 @@ public class Controller {
         // DRAW
         //printMap();
         drawMap();
+        displayController.fillDetails(this.map.getMap());
     }
 
 

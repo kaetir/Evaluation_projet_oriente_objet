@@ -100,7 +100,7 @@
         </ScrollPane>
         <AnchorPane>
           <children>
-                  <VBox>
+                  <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                   <Label alignment="CENTER" style="&#10;" text="Details" textAlignment="CENTER" wrapText="false">
                            <font>
@@ -110,7 +110,11 @@
                       <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
                            </textFill>
                         </Label>
-                        <ListView prefHeight="200.0" prefWidth="200.0" />
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <ListView fx:id="Detail_list" prefHeight="715.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
                      </children></VBox>
           </children>
         </AnchorPane>

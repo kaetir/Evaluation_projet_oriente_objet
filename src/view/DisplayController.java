@@ -1,12 +1,16 @@
 package view;
 
 import controller.Controller;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.canvas.*;
 import javafx.scene.canvas.Canvas;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import model.Map.*;
 import java.util.Random;
+import model.Entities.Individual;
 
 import java.util.ArrayList;
 
@@ -23,6 +27,9 @@ public class DisplayController {
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
     }
+
+    @FXML
+    private ListView<String> Detail_list;
 
     @FXML
     private Canvas canvas;
@@ -125,8 +132,17 @@ public class DisplayController {
             g.strokeLine(0, wld , height, wld);
         }
 
+    }
 
-
+    public void fillDetails(ArrayList<ArrayList<Case>> map){
+        ObservableList<String> items = FXCollections.observableArrayList ();
+        for (ArrayList<Case> ligne: map ) {
+            for (Case c: ligne ) {
+                if (c.hasToken() && c.getToken() instanceof Individual)
+                    items.add(c.getToken().toString());
+            }
+        }
+        Detail_list.setItems(items);
     }
 
 }

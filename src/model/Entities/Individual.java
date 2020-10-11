@@ -156,4 +156,10 @@ public abstract class Individual extends Token {
         this.lastDirection = direction;
         return this.lastDirection;
     }
+
+
+    @Override
+    public String toString() {
+        return "EP=" + String.format("%03d", energyPoints) + " goods=" + goods ;
+    }
 }
