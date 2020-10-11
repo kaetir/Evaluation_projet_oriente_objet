@@ -10,6 +10,10 @@ public class Merchant extends Good {
         Collections.addAll(this.goods, Merchant.merchantGoods);
     }
 
+    public void shareMaster() {
+        MasterMerchant.getInstance().share(this.goods);
+    }
+
     @Override
     public char getPrintable() {
         return 'm';

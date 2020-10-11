@@ -124,7 +124,10 @@ public class Map {
         }
     }
     
-    public ArrayList<PackIndividualPosition> getEveryIndividuals() {
+    public ArrayList<PackIndividualPosition> getEveryIndividualsMoving() {
+        /*
+        Return every Individual with energyPoints > 0 on the map and their position
+         */
         ArrayList<PackIndividualPosition> individuals = new ArrayList<PackIndividualPosition>();
 
         for (int i = 0; i < this.map.size(); i++) {
@@ -133,6 +136,7 @@ public class Map {
                 if (tokenTemp == null) continue;
                 if (tokenTemp instanceof Master) continue; // Masters Do not move
                 if (tokenTemp instanceof Individual) {
+                    if (((Individual) tokenTemp).getEnergyPoints() <= 0) continue;
                     individuals.add(new PackIndividualPosition((Individual) tokenTemp, i, j));
                 }
             }
@@ -141,8 +145,24 @@ public class Map {
         return individuals;
     }
 
-    public void step() {
-        ArrayList<PackIndividualPosition> individuals = this.getEveryIndividuals();
+    public ArrayList<Master> checkWin() {
+        /*
+        Check whether masters won the simulation (Array because we could have a Tie)
+         */
+        ArrayList<Master> winners = new ArrayList<Master>();
+
+        if (MasterBritish.getInstance().checkHasEveryGoods()) winners.add(MasterBritish.getInstance());
+        if (MasterUndead.getInstance().checkHasEveryGoods()) winners.add(MasterUndead.getInstance());
+        if (MasterPirate.getInstance().checkHasEveryGoods()) winners.add(MasterPirate.getInstance());
+        if (MasterMerchant.getInstance().checkHasEveryGoods()) winners.add(MasterMerchant.getInstance());
+
+        return winners;
+    }
+
+    public boolean step() {
+        ArrayList<PackIndividualPosition> individuals = this.getEveryIndividualsMoving();
+
+        if (individuals.size() == 0) return false;
 
         Collections.shuffle(individuals);
 
@@ -189,8 +209,11 @@ public class Map {
 
             if (this.getCase(newY, newX) instanceof SafeCase) {
                 pack.individual.restoreEnergy();
+
+                pack.individual.shareMaster();
             }
         }
+        return true; // Step Worked
     }
 
 

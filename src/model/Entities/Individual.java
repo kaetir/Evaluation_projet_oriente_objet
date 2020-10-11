@@ -6,10 +6,17 @@ import model.Token;
 import utils.Direction;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public abstract class Individual extends Token {
 
     private static final int defaultEnergyPoints = 100;
+    private static int getAllianceSharingNumber() {
+        /*
+        How many goods should individual in an alliance share ?
+         */
+        return (int) (Math.random() * 3);
+    }
 
     protected ArrayList<String> goods = new ArrayList<String>(); /// Goods carried by every individual
     protected int energyPoints = 0; /// Energy points before an individual will collapse
@@ -19,14 +26,101 @@ public abstract class Individual extends Token {
         this.energyPoints = Individual.defaultEnergyPoints;
     }
 
+    public int getEnergyPoints() {
+        return this.energyPoints;
+    }
+
+    public boolean checkHasEveryGoods() {
+        /*
+        Check if individual own every goods of the world
+         */
+        for (String good: British.britishGoods) {
+            if (!this.goods.contains(good)) return false;
+        }
+        for (String good: Undead.undeadGoods) {
+            if (!this.goods.contains(good)) return false;
+        }
+        for (String good: Pirate.pirateGoods) {
+            if (!this.goods.contains(good)) return false;
+        }
+        for (String good: Merchant.merchantGoods) {
+            if (!this.goods.contains(good)) return false;
+        }
+        return true;
+    }
+
     public void restoreEnergy() {
         this.energyPoints = Individual.defaultEnergyPoints;
     }
 
-    public void encounter(Individual other) {
-
+    public void steal(Individual other) {
+        Collections.shuffle(other.goods);
+        for (String good: other.goods) {
+            if (!this.goods.contains(good)) {
+                this.goods.add(good); // We steal Only one good we do not own
+                return;
+            }
+        }
     }
 
+    public int battleRandom() {
+        return (int) (Math.random() * 10);
+    }
+
+    public void encounter(Individual other) {
+        if ((other instanceof British && this instanceof British)
+            || (other instanceof Undead && this instanceof Undead)
+            || (other instanceof Pirate && this instanceof Pirate)
+            || (other instanceof Merchant && this instanceof Merchant)) {
+            // Same Population, Sharing !
+            other.share(goods);
+            this.share(other.goods); // Same class, We can access it
+
+        } else if ((other instanceof Good && this instanceof Good)
+            || (other instanceof Bad && this instanceof Bad)) {
+            // Same Alliance, Little Sharing !
+            ArrayList<String> littleGoods = new ArrayList<String>();
+            ArrayList<String> littleGoodsOther = new ArrayList<String>();
+            Collections.shuffle(this.goods);
+            for (int i = 0; (i < Individual.getAllianceSharingNumber() && i < this.goods.size()); i++) {
+                littleGoods.add(this.goods.get(i));
+            }
+            Collections.shuffle(other.goods);
+            for (int i = 0; (i < Individual.getAllianceSharingNumber() && i < other.goods.size()); i++) {
+                littleGoodsOther.add(other.goods.get(i));
+            }
+
+            other.share(littleGoods);
+            this.share(littleGoodsOther); // Same class, We can access it
+
+        } else {
+            // Enemies, Battle !
+            int myValue = this.battleRandom();
+            int otherValue = this.battleRandom();
+
+            if (myValue > otherValue) {
+                // I won
+                this.steal(other);
+            } else if (myValue < otherValue) {
+                // I lose
+                other.steal(this);
+            } else {
+                // Tie, nothing Happens
+            }
+
+        }
+    }
+
+    public void share(ArrayList<String> goods) {
+        /*
+        Individual sharing every goods he own with another one
+         */
+        for (String good: goods) {
+            if (!this.goods.contains(good)) this.goods.add(good);
+        }
+    }
+
+    public abstract void shareMaster(); // Share ressources to his master
 
     public Direction move(ArrayList< ArrayList<Case> > adjacentCases) {
         /*

@@ -10,6 +10,10 @@ public class British extends Good {
         Collections.addAll(this.goods, British.britishGoods);
     }
 
+    public void shareMaster() {
+        MasterBritish.getInstance().share(this.goods);
+    }
+
     @Override
     public char getPrintable() {
         return 'b';
