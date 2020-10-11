@@ -2,7 +2,7 @@ package model.Entities;
 
 import java.util.Collections;
 
-public class MasterPirate extends Pirate {
+public class MasterPirate extends Pirate implements Master {
 
     private static final MasterPirate instance = new MasterPirate();
     private MasterPirate() {}

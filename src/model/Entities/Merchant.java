@@ -6,6 +6,7 @@ public class Merchant extends Good {
     public static final String[] merchantGoods = {"Wood", "Clothes", "Tea"};
 
     public Merchant() {
+        super();
         Collections.addAll(this.goods, Merchant.merchantGoods);
     }
 

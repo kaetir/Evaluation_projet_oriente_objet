@@ -2,7 +2,7 @@ package model.Entities;
 
 import java.util.Collections;
 
-public class MasterUndead extends Undead {
+public class MasterUndead extends Undead implements Master {
 
     private static final MasterUndead instance = new MasterUndead();
     private MasterUndead() {}

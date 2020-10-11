@@ -2,13 +2,20 @@ package model.Map;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import model.Entities.*;
 import model.Obstacle;
+import model.Token;
+import utils.Direction;
 
 public class Map {
 
     static private final int minimumSafeZone = 2;
+    static public final Direction britishSafeDirection = new Direction(-1, -1);
+    static public final Direction undeadSafeDirection = new Direction(1, -1);
+    static public final Direction pirateSafeDirection = new Direction(-1, 1);
+    static public final Direction merchantSafeDirection = new Direction(1, 1);
 
     private ArrayList<ArrayList<Case>> map;
 
@@ -42,19 +49,35 @@ public class Map {
                 Case tempCase;
                 if (i < safeZoneWidth && j < safeZoneHeight) {
                     tempCase = new SafeCaseBritish();
-                    if (i == 0 && j == 0) tempCase.setToken(MasterBritish.getInstance());
+                    if (i == 0 && j == 0) {
+                        tempCase.setToken(MasterBritish.getInstance());
+                    } else {
+                        tempCase.setToken(new British());
+                    }
 
                 } else if (i >= width - safeZoneWidth && j < safeZoneHeight) {
                     tempCase = new SafeCaseUndead();
-                    if (i == width - 1 && j == 0) tempCase.setToken(MasterUndead.getInstance());
+                    if (i == width - 1 && j == 0) {
+                        tempCase.setToken(MasterUndead.getInstance());
+                    } else {
+                        tempCase.setToken(new Undead());
+                    }
 
                 } else if (i < safeZoneWidth && j >= height - safeZoneHeight) {
                     tempCase = new SafeCasePirate();
-                    if (i == 0 && j == height - 1) tempCase.setToken(MasterPirate.getInstance());
+                    if (i == 0 && j == height - 1) {
+                        tempCase.setToken(MasterPirate.getInstance());
+                    } else {
+                        tempCase.setToken(new Pirate());
+                    }
 
                 } else if (i >= width - safeZoneWidth && j >= height - safeZoneHeight) {
                     tempCase = new SafeCaseMerchant();
-                    if (i == width - 1 && j == height - 1) tempCase.setToken(MasterMerchant.getInstance());
+                    if (i == width - 1 && j == height - 1) {
+                        tempCase.setToken(MasterMerchant.getInstance());
+                    } else {
+                        tempCase.setToken(new Merchant());
+                    }
 
                 } else {
                     tempCase = new Case();
@@ -73,8 +96,14 @@ public class Map {
         this.generateMap(12, 8, 3, 2, 0.05);
     }
 
-    public ArrayList<Case> getAdjacentCases(int x, int y) {
-        ArrayList<Case> arrayCases = new ArrayList<Case>();
+    public ArrayList< ArrayList<Case> > getAdjacentCases(int x, int y) {
+        ArrayList< ArrayList<Case> > arrayCases = new ArrayList< ArrayList<Case> >();
+        for (int i = -1; i < 2; i++) {
+            arrayCases.add(new ArrayList<Case>());
+            for (int j = -1; j < 2; j++) {
+                arrayCases.get(i+1).add(this.getCase(x+i, y+j));
+            }
+        }
         return arrayCases;
     }
 
@@ -82,12 +111,91 @@ public class Map {
         if (x < 0 || y < 0 || x >= this.map.size() || y >= this.map.get(0).size()) return null;
         return this.map.get(x).get(y);
     }
-/*
-    public int[] getSafeZoneDirection(Individual token) {
-        if (token instanceof British) return {-1,-1};
+
+    private static class PackIndividualPosition {
+        public Individual individual;
+        public int x;
+        public int y;
+
+        public PackIndividualPosition (Individual indi, int x, int y) {
+            this.individual = indi;
+            this.x = x;
+            this.y = y;
+        }
     }
-*/
-    public void printMap() {
+    
+    public ArrayList<PackIndividualPosition> getEveryIndividuals() {
+        ArrayList<PackIndividualPosition> individuals = new ArrayList<PackIndividualPosition>();
+
+        for (int i = 0; i < this.map.size(); i++) {
+            for (int j = 0; j < this.map.get(0).size(); j++) {
+                Token tokenTemp = this.map.get(i).get(j).getToken();
+                if (tokenTemp == null) continue;
+                if (tokenTemp instanceof Master) continue; // Masters Do not move
+                if (tokenTemp instanceof Individual) {
+                    individuals.add(new PackIndividualPosition((Individual) tokenTemp, i, j));
+                }
+            }
+        }
+
+        return individuals;
+    }
+
+    public void step() {
+        ArrayList<PackIndividualPosition> individuals = this.getEveryIndividuals();
+
+        Collections.shuffle(individuals);
+
+        for (PackIndividualPosition pack: individuals) {
+            Direction indiDirection = pack.individual.move(this.getAdjacentCases(pack.x, pack.y));
+            int length = indiDirection.getLength();
+            int dirX = indiDirection.getX();
+            int dirY = indiDirection.getY();
+
+            int newX = pack.x;
+            int newY = pack.y;
+
+            while (length > 0) {
+                Case tempCase = this.getCase(newX + dirX, newY + dirY);
+                if (tempCase == null) break; // Out of Bounds
+                Token tempToken = tempCase.getToken();
+
+                // Cannot encounter and go in safe
+                if (tempCase instanceof SafeCase &&
+                 ( pack.individual instanceof British && !(tempCase instanceof SafeCaseBritish)
+                || pack.individual instanceof Undead && !(tempCase instanceof SafeCaseUndead)
+                || pack.individual instanceof Pirate && !(tempCase instanceof SafeCasePirate)
+                || pack.individual instanceof Merchant && !(tempCase instanceof SafeCaseMerchant))) {
+
+                    break; // STOP
+
+                } else if (tempToken != null) {
+                    // OBSTACLE!
+                    if (tempToken instanceof Individual) { // ENCOUNTER!
+                        pack.individual.encounter((Individual) tempToken);
+                    }
+                    break;
+
+                } else {
+                    newX += dirX;
+                    newY += dirY;
+                    length--;
+                }
+            }
+
+            // Changing position
+            this.getCase(pack.x, pack.y).setToken(null);
+            this.getCase(newX, newY).setToken(pack.individual);
+
+            if (this.getCase(newY, newX) instanceof SafeCase) {
+                pack.individual.restoreEnergy();
+            }
+        }
+    }
+
+
+    
+    public void printMapASCII() {
         /*
             Print Map with ASCII Characters
          */

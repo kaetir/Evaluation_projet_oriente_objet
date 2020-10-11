@@ -1,17 +1,18 @@
 package controller;
 
+import model.Entities.Individual;
 import model.Map.Map;
 import view.DisplayController;
 
-public class Controller {
+import java.util.ArrayList;
+import java.util.Collections;
 
-    private boolean paused = true;
-    private boolean started = false;
+public class Controller {
 
     private static final int mapWidth = 20;
     private static final int mapHeight = 20;
     private static final int safeZoneWidth = 3;
-    private static final int safeZoneHeight = 3;
+    private static final int safeZoneHeight = 2;
     private static Map map = new Map(mapWidth, mapHeight, safeZoneWidth, safeZoneHeight);
     private static DisplayController displayController ;
 
@@ -25,47 +26,21 @@ public class Controller {
 
     public static Controller getInstance() {return instance; }
 
-    /// start the simulation if not already started
-    public void start() {
-        // check if already started
-        if (this.started) return;
-
-        // Creating the map
-        // map = new Map(mapWidth, mapHeight, safeZoneWidth, safeZoneHeight);
-
-        this.started = true;
-        this.paused = false;
-//        while (!this.paused){
-//            this.stepTask.run();
-//        }
-    }
-
-    /// Pause the simulation
-    private boolean pause() {
-        if (this.paused || !this.started) return false;
-        this.paused = true;
-        return true;
-    }
-
-    private boolean resume() {
-        if (!this.paused || !this.started) return false;
-
-        this.paused = false;
-        return true;
-    }
-
     /// reset the simultation by rebuilding the map
     private void reset() {
     }
 
     public void printMap(){
-        Controller.map.printMap();
+        Controller.map.printMapASCII();
     }
     public void drawMap(){
         Controller.displayController.drawMap(Controller.map);
     }
 
     public void step(){
+        this.map.step();
+
+        // DRAW
         printMap();
         drawMap();
     }

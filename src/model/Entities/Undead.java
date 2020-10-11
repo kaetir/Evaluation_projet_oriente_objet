@@ -6,6 +6,7 @@ public class Undead extends Mechant {
     public static final String[] undeadGoods = {"Ashen Skulls", "Tridents", "Souls"};
 
     public Undead() {
+        super();
         Collections.addAll(this.goods, Undead.undeadGoods);
     }
 

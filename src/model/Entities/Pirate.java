@@ -6,6 +6,7 @@ public class Pirate extends Mechant {
     public static final String[] pirateGoods = {"Rhum", "Absinth", "Grog"};
 
     public Pirate() {
+        super();
         Collections.addAll(this.goods, Pirate.pirateGoods);
     }
 
