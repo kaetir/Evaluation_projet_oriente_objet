@@ -4,10 +4,12 @@ package model.Map;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import controller.PseudoRandom;
 import model.Entities.*;
 import model.Obstacle;
 import model.Token;
 import utils.Direction;
+
 
 public class Map {
 
@@ -81,7 +83,8 @@ public class Map {
 
                 } else {
                     tempCase = new Case();
-                    if (Math.random() < randomObstacleChance) tempCase.setToken(new Obstacle());
+                    if ( PseudoRandom.getRandomNumberInRange(0, 100)  < randomObstacleChance * 100)
+                        tempCase.setToken(new Obstacle());
                 }
                 column.add(tempCase);
             }

@@ -1,5 +1,6 @@
 package model.Entities;
 
+import controller.PseudoRandom;
 import model.Map.Case;
 import model.Map.Map;
 import model.Token;
@@ -15,7 +16,7 @@ public abstract class Individual extends Token {
         /*
         How many goods should individual in an alliance share ?
          */
-        return (int) (Math.random() * 3);
+        return PseudoRandom.getRandomNumberInRange(1,3);
     }
 
     protected ArrayList<String> goods = new ArrayList<String>(); /// Goods carried by every individual
@@ -54,6 +55,7 @@ public abstract class Individual extends Token {
     }
 
     public void steal(Individual other) {
+        // TODO refaire cette fonction avec le pseudo aléatoire
         Collections.shuffle(other.goods);
         for (String good: other.goods) {
             if (!this.goods.contains(good)) {
@@ -64,7 +66,7 @@ public abstract class Individual extends Token {
     }
 
     public int battleRandom() {
-        return (int) (Math.random() * 10);
+        return PseudoRandom.getRandom() * 10;
     }
 
     public void encounter(Individual other) {
@@ -138,8 +140,8 @@ public abstract class Individual extends Token {
         }
 
         if (direction == null) {
-            int x = (int) (Math.random() * 3) - 1; // -1, 0 or 1
-            int y = (int) (Math.random() * 3) - 1; // -1, 0 or 1
+            int x = PseudoRandom.getRandomNumberInRange(-1, 1); // -1, 0 or 1
+            int y = PseudoRandom.getRandomNumberInRange(-1, 1); // -1, 0 or 1
             direction = new Direction(x, y);
         }
 
@@ -147,7 +149,7 @@ public abstract class Individual extends Token {
         if (adjacentCases.get(1).get(1+direction.getY()) == null) direction.setY(0);
         if (adjacentCases.get(1+direction.getX()).get(1) == null) direction.setX(0);
 
-        int length = (int) (Math.random() * 9 + 1);
+        int length = PseudoRandom.getRandomNumberInRange(0, 9);
 
         direction.setLength(length);
 

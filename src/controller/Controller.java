@@ -13,6 +13,7 @@ public class Controller {
     private static final int mapHeight = 20;
     private static final int safeZoneWidth = 3;
     private static final int safeZoneHeight = 2;
+    private static final int seed = 0;
     private static Map map = new Map(mapWidth, mapHeight, safeZoneWidth, safeZoneHeight);
     private static DisplayController displayController ;
 
@@ -22,12 +23,21 @@ public class Controller {
     public static void setDisplayController(DisplayController displayController) {
         Controller.displayController = displayController;
         Controller.displayController.setController(Controller.getInstance());
+        Controller.displayController.drawMap(map);
     }
 
     public static Controller getInstance() {return instance; }
 
     /// reset the simultation by rebuilding the map
-    private void reset() {
+    public void reset(long seed) {
+        PseudoRandom.reset(seed);
+        map =  new Map(mapWidth, mapHeight, safeZoneWidth, safeZoneHeight);
+        drawMap();
+    }
+
+    /// reset the simultation by rebuilding the map
+    public void reset() {
+        reset(0);
     }
 
     public void printMap(){

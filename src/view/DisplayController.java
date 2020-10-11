@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+import controller.PseudoRandom;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.*;
@@ -20,13 +21,7 @@ public class DisplayController {
     private boolean started = false;
     private Controller controller;
 
-    private static int getRandomNumberInRange(int min, int max) {
-        if (min >= max) {
-            throw new IllegalArgumentException("max must be greater than min");
-        }
-        Random r = new Random();
-        return r.nextInt((max - min) + 1) + min;
-    }
+
 
     @FXML
     private ListView<String> Detail_list;
@@ -43,7 +38,7 @@ public class DisplayController {
     }
 
     public void genRandomSeed(){
-        seedText.setText(String.valueOf(getRandomNumberInRange(1,123465789)));
+        seedText.setText(String.valueOf(PseudoRandom.getRandomNumberInRange(1,123465789)));
     }
 
     public void setController(Controller controller) {
@@ -80,6 +75,7 @@ public class DisplayController {
 
     public void reset(){
         System.out.println("Clic on reset");
+        this.controller.reset(getSeed());
         // TODO Reset the simulation - prepare to restart
     }
 
