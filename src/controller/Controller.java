@@ -1,6 +1,6 @@
 package controller;
 
-import model.Entities.Individual;
+import model.Entities.*;
 import model.Map.Map;
 import view.DisplayController;
 
@@ -38,10 +38,20 @@ public class Controller {
     }
 
     public void step(){
-        this.map.step();
+        boolean success = this.map.step();
+
+        if (!success) System.out.println("Nobody can move anymore!");
+
+        ArrayList<Master> winners = this.map.checkWin();
+        if (winners.size() > 0) {
+            if (winners.contains(MasterBritish.getInstance())) System.out.println("British Won!");
+            if (winners.contains(MasterUndead.getInstance())) System.out.println("Undeads Won!");
+            if (winners.contains(MasterPirate.getInstance())) System.out.println("Pirates Won!");
+            if (winners.contains(MasterMerchant.getInstance())) System.out.println("Merchants Won!");
+        }
 
         // DRAW
-        printMap();
+        //printMap();
         drawMap();
     }
 
