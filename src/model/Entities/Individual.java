@@ -149,7 +149,11 @@ public abstract class Individual extends Token {
         if (adjacentCases.get(1).get(1+direction.getY()) == null) direction.setY(0);
         if (adjacentCases.get(1+direction.getX()).get(1) == null) direction.setX(0);
 
-        int length = PseudoRandom.getRandomNumberInRange(0, 9);
+        int length = PseudoRandom.getRandomNumberInRange(1, 3);
+
+        if (direction.getX() == 0 && direction.getY() == 0) {
+            length = 0;
+        }
 
         direction.setLength(length);
 
