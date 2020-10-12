@@ -21,21 +21,15 @@ public class Map {
 
     private ArrayList<ArrayList<Case>> map;
 
-<<<<<<< Updated upstream
     /**
      * This function generateMap is meant to generate a map via different parameters
      * @param width set the width of the map by each case
      * @param height set the height of the map by each case
      * @param safeZoneWidth set the width of the safe Zone
      * @param safeZoneHeight   set the height of the safe Zone
-     * @param randomObstacleChance
      */
-    private void generateMap(int width, int height, int safeZoneWidth, int safeZoneHeight, double randomObstacleChance) {
-        this.map = new ArrayList<ArrayList<Case>>();
-=======
     private void generateMap(int width, int height, int safeZoneWidth, int safeZoneHeight) {
         this.map = new ArrayList<>();
->>>>>>> Stashed changes
 
         // Minimum Values
         if (safeZoneWidth < Map.minimumSafeZone) {
