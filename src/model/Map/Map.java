@@ -167,7 +167,7 @@ public class Map {
 
         if (individuals.size() == 0) return false;
 
-        Collections.shuffle(individuals);
+        Collections.shuffle(individuals, PseudoRandom.getGenerator());
 
         for (PackIndividualPosition pack: individuals) {
             Direction indiDirection = pack.individual.move(this.getAdjacentCases(pack.x, pack.y));
