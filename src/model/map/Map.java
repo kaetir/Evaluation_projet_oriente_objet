@@ -21,6 +21,14 @@ public class Map {
 
     private ArrayList<ArrayList<Case>> map;
 
+    /**
+     * This function generateMap is meant to generate a map via different parameters
+     * @param width set the width of the map by each case
+     * @param height set the height of the map by each case
+     * @param safeZoneWidth set the width of the safe Zone
+     * @param safeZoneHeight   set the height of the safe Zone
+     * @param randomObstacleChance
+     */
     private void generateMap(int width, int height, int safeZoneWidth, int safeZoneHeight, double randomObstacleChance) {
         this.map = new ArrayList<ArrayList<Case>>();
 
@@ -92,6 +100,14 @@ public class Map {
         }
     }
 
+    /**
+     * Map function is meant to call the function to generate map via different parameters and we set the  chance of having Obstacle in the map
+     * @param width set the width of the map by each case
+     * @param height set the height of the map by each case
+     * @param safeZoneWidth set the width of the safe Zone
+     * @param safeZoneHeight   set the height of the safe Zone
+     *
+     */
     public Map(int width, int height, int safeZoneWidth, int safeZoneHeight) {
         this.generateMap(width, height, safeZoneWidth, safeZoneHeight, 0.05);
     }
@@ -99,6 +115,12 @@ public class Map {
         this.generateMap(12, 8, 3, 2, 0.05);
     }
 
+    /**
+     * ArrayList allows you to table the map according to x and y coordinates, it is called in the generated map function
+     * @param x
+     * @param y
+     * @return
+     */
     public ArrayList< ArrayList<Case> > getAdjacentCases(int x, int y) {
         ArrayList< ArrayList<Case> > arrayCases = new ArrayList< ArrayList<Case> >();
         for (int i = -1; i < 2; i++) {
@@ -110,6 +132,12 @@ public class Map {
         return arrayCases;
     }
 
+    /**
+     * It returns a certain case in the map via the x and y axis parameters
+     * @param x
+     * @param y
+     * @return
+     */
     public Case getCase(int x, int y) {
         if (x < 0 || y < 0 || x >= this.map.size() || y >= this.map.get(0).size()) return null;
         return this.map.get(x).get(y);
@@ -126,7 +154,11 @@ public class Map {
             this.y = y;
         }
     }
-    
+
+    /**
+     *
+     * @return
+     */
     public ArrayList<PackIndividualPosition> getEveryIndividualsMoving() {
         /*
         Return every Individual with energyPoints > 0 on the map and their position
