@@ -8,8 +8,8 @@ public class SafeCase extends Case {
     }
 
     /**
-     * On redéfini la fonction de Case selon chaque équipe
-     * @return
+     * Redefine the function of the Case according to every team
+     * @return the printable char of the Token
      */
     public char getPrintable() {
         if(this.getToken() == null)
@@ -18,8 +18,8 @@ public class SafeCase extends Case {
     }
 
     /**
-     * On initialise ici la couleur que prend les cases des safe zones
-     * @param c la couleur c est précisé selon l'équipe de la safe zone.
+     * initialise the color of the cases for safe zones
+     * @param c the color is overwritten for every team for the safe zone.
      */
     public void setColor(Color c) {
         this.color = c;

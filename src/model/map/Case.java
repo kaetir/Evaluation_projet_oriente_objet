@@ -16,7 +16,7 @@ public class Case {
 
     /**
      * get Printable will display the content of the case  if the token exist
-     * @return un élément qui va s'afficher sur la case
+     * @return a char of what will is the case
      */
     public char getPrintable() {
         if(this.getToken() == null)

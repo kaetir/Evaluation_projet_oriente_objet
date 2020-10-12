@@ -30,8 +30,8 @@ public class Controller {
 
 
     /**
-     * Button for reseting the simulation, reset the simultation by rebuilding the map
-     * @param seed pour initialiser le random
+     * Button for reseting the simulation, reset the simulation by rebuilding the map
+     * @param seed for initialisation of the random
      */
     public void reset(long seed) {
         Controller.seed = (int) seed;
