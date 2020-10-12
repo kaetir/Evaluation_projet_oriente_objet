@@ -5,14 +5,13 @@ import controller.PseudoRandom;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.*;
-import javafx.scene.canvas.Canvas;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import model.Map.*;
+import model.map.*;
 
 import java.util.Collections;
-import model.Entities.Individual;
+import model.entities.Individual;
 
 import java.util.ArrayList;
 

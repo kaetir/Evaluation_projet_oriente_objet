@@ -1,8 +1,8 @@
-package model.Entities;
+package model.entities;
 
 import controller.PseudoRandom;
-import model.Map.Case;
-import model.Map.Map;
+import model.map.Case;
+import model.map.Map;
 import model.Token;
 import utils.Direction;
 

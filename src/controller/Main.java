@@ -6,9 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import model.*;
-import model.Entities.Merchant;
-import model.Map.*;
 import view.DisplayController;
 
 public class Main extends Application {
@@ -23,8 +20,7 @@ public class Main extends Application {
 
         DisplayController dController = fxmlLoader.getController();
 
-        Controller controller = Controller.getInstance();
-        controller.setDisplayController(dController);
+        Controller.setDisplayController(dController);
 
     }
 

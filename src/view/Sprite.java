@@ -37,12 +37,12 @@ public class Sprite {
                 try {
                     buffer.put(location , new Image(location, sizeX, sizeY, false, false));
                 }catch (Exception e){
-                    System.err.println(e);
+                    // System.err.println(e);
                 }
             }
             return buffer.get(location);
         }catch (Exception e){
-            System.err.println(e);
+            // System.err.println(e);
             return new Image("https://vignette.wikia.nocookie.net/hypixel-skyblock/images/b/bc/Null_Block.png/revision/latest/scale-to-width-down/340?cb=20200110153845",sizeX, sizeY, false, false);
         }
     }

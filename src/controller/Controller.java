@@ -1,11 +1,11 @@
 package controller;
 
-import model.Entities.*;
-import model.Map.Map;
+import model.entities.*;
+import model.map.Map;
 import view.DisplayController;
 
 import java.util.ArrayList;
-import java.util.Collections;
+
 
 public class Controller {
 
@@ -52,11 +52,11 @@ public class Controller {
     }
 
     public void step(){
-        boolean success = this.map.step();
+        boolean success = map.step();
 
         if (!success) System.out.println("Nobody can move anymore!");
 
-        ArrayList<Master> winners = this.map.checkWin();
+        ArrayList<Master> winners = map.checkWin();
         if (winners.size() > 0) {
             if (winners.contains(MasterBritish.getInstance())) System.out.println("British Won!");
             if (winners.contains(MasterUndead.getInstance())) System.out.println("Undeads Won!");
@@ -67,7 +67,7 @@ public class Controller {
         // DRAW
         //printMap();
         drawMap();
-        displayController.fillDetails(this.map.getMap());
+        displayController.fillDetails(map.getMap());
     }
 
 

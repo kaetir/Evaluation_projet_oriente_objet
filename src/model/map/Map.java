@@ -1,11 +1,11 @@
-package model.Map;
+package model.map;
 
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import controller.PseudoRandom;
-import model.Entities.*;
+import model.entities.*;
 import model.Obstacle;
 import model.Token;
 import utils.Direction;
