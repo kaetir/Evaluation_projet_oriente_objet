@@ -28,7 +28,11 @@ public class Controller {
 
     public static Controller getInstance() {return instance; }
 
-    /// reset the simultation by rebuilding the map
+
+    /**
+     * Button for reseting the simulation, reset the simultation by rebuilding the map
+     * @param seed pour initialiser le random
+     */
     public void reset(long seed) {
         PseudoRandom.reset(seed);
         map =  new Map(mapWidth, mapHeight, safeZoneWidth, safeZoneHeight);

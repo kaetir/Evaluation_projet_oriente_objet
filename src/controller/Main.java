@@ -26,14 +26,11 @@ public class Main extends Application {
         Controller controller = Controller.getInstance();
         controller.setDisplayController(dController);
 
-
-
     }
-
 
     public static void main(String[] args) {
         launch(args);
-        System.out.println("Bip Boop Init");
+        System.out.println("Bip Boop End");
 
     }
 }

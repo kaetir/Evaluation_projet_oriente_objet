@@ -10,7 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import model.Map.*;
-import java.util.Random;
+
+import java.util.Collections;
 import model.Entities.Individual;
 
 import java.util.ArrayList;
@@ -33,8 +34,11 @@ public class DisplayController {
     private TextField seedText;
 
     public Integer getSeed() {
-        System.out.println(seedText.getText());
-        return Integer.parseInt( seedText.getText());
+        try{
+            return Integer.parseInt( seedText.getText());
+        }catch (Exception e){
+            return 0;
+        }
     }
 
     public void genRandomSeed(){
@@ -69,14 +73,12 @@ public class DisplayController {
 
     public void step(){
         System.out.println("Clic on step");
-        // TODO step over one generation
         controller.step();
     }
 
     public void reset(){
         System.out.println("Clic on reset");
         this.controller.reset(getSeed());
-        // TODO Reset the simulation - prepare to restart
     }
 
     public void drawMap(Map map){
@@ -138,6 +140,7 @@ public class DisplayController {
                     items.add(c.getToken().toString());
             }
         }
+        Collections.sort(items);
         Detail_list.setItems(items);
     }
 
