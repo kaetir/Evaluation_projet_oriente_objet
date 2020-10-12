@@ -13,7 +13,7 @@ public class Controller {
     private static final int mapHeight = 20;
     private static final int safeZoneWidth = 3;
     private static final int safeZoneHeight = 2;
-    private static final int seed = 0;
+    private static int seed = 0;
     private static Map map = new Map(mapWidth, mapHeight, safeZoneWidth, safeZoneHeight);
     private static DisplayController displayController ;
 
@@ -34,6 +34,7 @@ public class Controller {
      * @param seed pour initialiser le random
      */
     public void reset(long seed) {
+        Controller.seed = (int) seed;
         PseudoRandom.reset(seed);
         map =  new Map(mapWidth, mapHeight, safeZoneWidth, safeZoneHeight);
         drawMap();

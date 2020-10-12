@@ -57,11 +57,11 @@
         </Menu>
       </menus-->
     </MenuBar>
-    <SplitPane dividerPositions="0.15, 0.85" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.15, 0.85" focusTraversable="true" VBox.vgrow="ALWAYS">
       <items>
         <AnchorPane>
           <children>
-                  <Label alignment="CENTER" style="&#10;" text="main" textAlignment="CENTER" wrapText="false">
+                  <Label alignment="CENTER" style="&#10;" text="main" textAlignment="CENTER">
                      <font>
                         <Font size="18.0" fx:id="x11" />
                      </font>

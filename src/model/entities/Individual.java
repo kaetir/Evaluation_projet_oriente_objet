@@ -21,8 +21,8 @@ public abstract class Individual extends Token {
         return PseudoRandom.getRandomNumberInRange(1,3);
     }
 
-    protected ArrayList<String> goods = new ArrayList<String>(); /// Goods carried by every individual
-    protected int energyPoints = 0; /// Energy points before an individual will collapse
+    protected ArrayList<String> goods = new ArrayList<>(); /// Goods carried by every individual
+    protected int energyPoints; /// Energy points before an individual will collapse
     protected Direction lastDirection = new Direction(0, 0); /// Last direction taken by an individual {x,y}, ex: {-1,1} means it went to South-West (so it comes from North-East)
 
     protected Individual () {
@@ -105,8 +105,8 @@ public abstract class Individual extends Token {
         } else if ((other instanceof Good && this instanceof Good)
             || (other instanceof Bad && this instanceof Bad)) {
             // Same Alliance, Little Sharing !
-            ArrayList<String> littleGoods = new ArrayList<String>();
-            ArrayList<String> littleGoodsOther = new ArrayList<String>();
+            ArrayList<String> littleGoods = new ArrayList<>();
+            ArrayList<String> littleGoodsOther = new ArrayList<>();
             Collections.shuffle(this.goods, PseudoRandom.getGenerator());
             for (int i = 0; (i < Individual.getAllianceSharingNumber() && i < this.goods.size()); i++) {
                 littleGoods.add(this.goods.get(i));
@@ -131,7 +131,7 @@ public abstract class Individual extends Token {
                 // I lose
                 other.steal(this);
             } else {
-                // Tie, nothing Happens
+                // TODO Tie, nothing Happens
             }
 
         }

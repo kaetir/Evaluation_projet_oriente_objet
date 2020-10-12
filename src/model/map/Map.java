@@ -21,6 +21,7 @@ public class Map {
 
     private ArrayList<ArrayList<Case>> map;
 
+<<<<<<< Updated upstream
     /**
      * This function generateMap is meant to generate a map via different parameters
      * @param width set the width of the map by each case
@@ -31,6 +32,10 @@ public class Map {
      */
     private void generateMap(int width, int height, int safeZoneWidth, int safeZoneHeight, double randomObstacleChance) {
         this.map = new ArrayList<ArrayList<Case>>();
+=======
+    private void generateMap(int width, int height, int safeZoneWidth, int safeZoneHeight) {
+        this.map = new ArrayList<>();
+>>>>>>> Stashed changes
 
         // Minimum Values
         if (safeZoneWidth < Map.minimumSafeZone) {
@@ -54,7 +59,7 @@ public class Map {
 
         // Generating Map
         for (int i = 0; i < width; i++) {
-            ArrayList<Case> column = new ArrayList<Case>();
+            ArrayList<Case> column = new ArrayList<>();
             for (int j = 0; j < height; j++) {
                 Case tempCase;
                 if (i < safeZoneWidth && j < safeZoneHeight) {
@@ -91,7 +96,7 @@ public class Map {
 
                 } else {
                     tempCase = new Case();
-                    if ( PseudoRandom.getRandomNumberInRange(0, 100)  < randomObstacleChance * 100)
+                    if ( PseudoRandom.getRandomNumberInRange(0, 100)  < 0.05 * 100)
                         tempCase.setToken(new Obstacle());
                 }
                 column.add(tempCase);
@@ -109,10 +114,10 @@ public class Map {
      *
      */
     public Map(int width, int height, int safeZoneWidth, int safeZoneHeight) {
-        this.generateMap(width, height, safeZoneWidth, safeZoneHeight, 0.05);
+        this.generateMap(width, height, safeZoneWidth, safeZoneHeight);
     }
     public Map() {
-        this.generateMap(12, 8, 3, 2, 0.05);
+        this.generateMap(12, 8, 3, 2);
     }
 
     /**
@@ -122,9 +127,9 @@ public class Map {
      * @return
      */
     public ArrayList< ArrayList<Case> > getAdjacentCases(int x, int y) {
-        ArrayList< ArrayList<Case> > arrayCases = new ArrayList< ArrayList<Case> >();
+        ArrayList< ArrayList<Case> > arrayCases = new ArrayList<>();
         for (int i = -1; i < 2; i++) {
-            arrayCases.add(new ArrayList<Case>());
+            arrayCases.add(new ArrayList<>());
             for (int j = -1; j < 2; j++) {
                 arrayCases.get(i+1).add(this.getCase(x+i, y+j));
             }
@@ -148,8 +153,8 @@ public class Map {
         public int x;
         public int y;
 
-        public PackIndividualPosition (Individual indi, int x, int y) {
-            this.individual = indi;
+        public PackIndividualPosition (Individual individual, int x, int y) {
+            this.individual = individual;
             this.x = x;
             this.y = y;
         }
@@ -163,7 +168,7 @@ public class Map {
         /*
         Return every Individual with energyPoints > 0 on the map and their position
          */
-        ArrayList<PackIndividualPosition> individuals = new ArrayList<PackIndividualPosition>();
+        ArrayList<PackIndividualPosition> individuals = new ArrayList<>();
 
         for (int i = 0; i < this.map.size(); i++) {
             for (int j = 0; j < this.map.get(0).size(); j++) {
@@ -184,7 +189,7 @@ public class Map {
         /*
         Check whether masters won the simulation (Array because we could have a Tie)
          */
-        ArrayList<Master> winners = new ArrayList<Master>();
+        ArrayList<Master> winners = new ArrayList<>();
 
         if (MasterBritish.getInstance().checkHasEveryGoods()) winners.add(MasterBritish.getInstance());
         if (MasterUndead.getInstance().checkHasEveryGoods()) winners.add(MasterUndead.getInstance());
@@ -202,10 +207,10 @@ public class Map {
         Collections.shuffle(individuals, PseudoRandom.getGenerator());
 
         for (PackIndividualPosition pack: individuals) {
-            Direction indiDirection = pack.individual.move(this.getAdjacentCases(pack.x, pack.y));
-            int length = indiDirection.getLength();
-            int dirX = indiDirection.getX();
-            int dirY = indiDirection.getY();
+            Direction individualDirection = pack.individual.move(this.getAdjacentCases(pack.x, pack.y));
+            int length = individualDirection.getLength();
+            int dirX = individualDirection.getX();
+            int dirY = individualDirection.getY();
 
             int newX = pack.x;
             int newY = pack.y;
@@ -242,7 +247,7 @@ public class Map {
             this.getCase(pack.x, pack.y).setToken(null);
             this.getCase(newX, newY).setToken(pack.individual);
 
-            if (this.getCase(newY, newX) instanceof SafeCase) {
+            if (this.getCase(newX, newY) instanceof SafeCase) {
                 pack.individual.restoreEnergy();
 
                 pack.individual.shareMaster();
@@ -265,8 +270,8 @@ public class Map {
         for (int j = 0; j < this.map.get(0).size(); j++) {
             System.out.print("|");
 
-            for (int i = 0; i < this.map.size(); i++) {
-                Case tempCase = this.map.get(i).get(j);
+            for (ArrayList<Case> cases : this.map) {
+                Case tempCase = cases.get(j);
                 if (tempCase.getToken() == null) {
                     System.out.print(tempCase.getPrintable());
                 } else {
