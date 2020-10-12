@@ -24,6 +24,10 @@ public class PseudoRandom {
         return generator.nextInt();
     }
 
+    public static Random getGenerator() {
+        return generator;
+    }
+
     public static int getRandomNumberInRange(int min, int max) {
         if (min >= max) {
             throw new IllegalArgumentException("max must be greater than min");

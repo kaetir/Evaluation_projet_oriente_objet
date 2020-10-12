@@ -56,7 +56,7 @@ public abstract class Individual extends Token {
 
     public void steal(Individual other) {
         // TODO refaire cette fonction avec le pseudo aléatoire
-        Collections.shuffle(other.goods);
+        Collections.shuffle(other.goods, PseudoRandom.getGenerator());
         for (String good: other.goods) {
             if (!this.goods.contains(good)) {
                 this.goods.add(good); // We steal Only one good we do not own
@@ -83,11 +83,11 @@ public abstract class Individual extends Token {
             // Same Alliance, Little Sharing !
             ArrayList<String> littleGoods = new ArrayList<String>();
             ArrayList<String> littleGoodsOther = new ArrayList<String>();
-            Collections.shuffle(this.goods);
+            Collections.shuffle(this.goods, PseudoRandom.getGenerator());
             for (int i = 0; (i < Individual.getAllianceSharingNumber() && i < this.goods.size()); i++) {
                 littleGoods.add(this.goods.get(i));
             }
-            Collections.shuffle(other.goods);
+            Collections.shuffle(other.goods, PseudoRandom.getGenerator());
             for (int i = 0; (i < Individual.getAllianceSharingNumber() && i < other.goods.size()); i++) {
                 littleGoodsOther.add(other.goods.get(i));
             }
@@ -162,6 +162,9 @@ public abstract class Individual extends Token {
 
     @Override
     public String toString() {
+        String[] className = this.getClass().toString().split("\\.");
+        if (className.length != 0)
+            return className[className.length-1] + " EP=" + String.format("%03d", energyPoints) + " goods=" + goods ;
         return "EP=" + String.format("%03d", energyPoints) + " goods=" + goods ;
     }
 }
