@@ -11,15 +11,24 @@ public class PseudoRandom {
 
     public static PseudoRandom pseudoRandom = new PseudoRandom(0);
 
+    /**
+     * Generate a number (long) from a seed
+     * @param seed number use to generate the random number
+     */
     private PseudoRandom(long seed) {
         PseudoRandom.seed = seed;
         PseudoRandom.generator = new Random(seed);
     }
 
+
     public static void reset(long seed){
         pseudoRandom = new PseudoRandom(seed);
     }
 
+    /**
+     * Get a random number from the generator
+     * @return return a random number in int
+     */
     public static int getRandom(){
         return generator.nextInt();
     }
