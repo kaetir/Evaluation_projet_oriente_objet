@@ -10,6 +10,11 @@ import view.DisplayController;
 
 public class Main extends Application {
 
+    /**
+     *
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/view.fxml"));
@@ -24,6 +29,10 @@ public class Main extends Application {
 
     }
 
+    /**
+     * Main... you know what
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
         System.out.println("Bip Boop End");
