@@ -12,10 +12,12 @@ import java.util.Collections;
 public abstract class Individual extends Token {
 
     private static final int defaultEnergyPoints = 100;
+
+    /**
+     * Get the number of goods that is share inside an alliance
+     * @return a number between 1 and 3
+     */
     private static int getAllianceSharingNumber() {
-        /*
-        How many goods should individual in an alliance share ?
-         */
         return PseudoRandom.getRandomNumberInRange(1,3);
     }
 
@@ -27,14 +29,19 @@ public abstract class Individual extends Token {
         this.energyPoints = Individual.defaultEnergyPoints;
     }
 
+    /**
+     * Get the energy points of the individual
+     * @return the value of energyPoints
+     */
     public int getEnergyPoints() {
         return this.energyPoints;
     }
 
+    /**
+     * Check if individual own every goods of the world by looping through all the type of individual
+     * @return true if it has all the goods, false otherwise
+     */
     public boolean checkHasEveryGoods() {
-        /*
-        Check if individual own every goods of the world
-         */
         for (String good: British.britishGoods) {
             if (!this.goods.contains(good)) return false;
         }
@@ -50,10 +57,17 @@ public abstract class Individual extends Token {
         return true;
     }
 
+    /**
+     * Set the energy points to the default value
+     */
     public void restoreEnergy() {
         this.energyPoints = Individual.defaultEnergyPoints;
     }
 
+    /**
+     * Steal a good from another individual
+     * @param other individual
+     */
     public void steal(Individual other) {
         // TODO refaire cette fonction avec le pseudo aléatoire
         Collections.shuffle(other.goods, PseudoRandom.getGenerator());
@@ -65,10 +79,20 @@ public abstract class Individual extends Token {
         }
     }
 
+    /**
+     * Get a random value
+     * @return a random value which is multiply by 10
+     */
     public int battleRandom() {
         return PseudoRandom.getRandom() * 10;
     }
 
+    /**
+     * If this individual and the other one are the same class, they exchange goods
+     * Else if this individual and the other one are allies, they exchange random goods
+     * Else if they are enemies, they fight and the winner steals the looser
+     * @param other individual
+     */
     public void encounter(Individual other) {
         if ((other instanceof British && this instanceof British)
             || (other instanceof Undead && this instanceof Undead)
@@ -113,17 +137,26 @@ public abstract class Individual extends Token {
         }
     }
 
+    /**
+     * Add undiscovered goods to the goods list of the individual
+     * @param goods that are shared
+     */
     public void share(ArrayList<String> goods) {
-        /*
-        Individual sharing every goods he own with another one
-         */
         for (String good: goods) {
             if (!this.goods.contains(good)) this.goods.add(good);
         }
     }
 
-    public abstract void shareMaster(); // Share ressources to his master
+    /**
+     * Share ressources to his master
+     */
+    public abstract void shareMaster();
 
+    /**
+     * Move the individual to a direction
+     * @param adjacentCases around the individual on the map
+     * @return a Direction to follow
+     */
     public Direction move(ArrayList< ArrayList<Case> > adjacentCases) {
         /*
         *
@@ -164,6 +197,9 @@ public abstract class Individual extends Token {
     }
 
 
+    /**
+     * @return information of the individual in a string format
+     */
     @Override
     public String toString() {
         String[] className = this.getClass().toString().split("\\.");

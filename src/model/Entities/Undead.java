@@ -10,15 +10,26 @@ public class Undead extends Bad {
         Collections.addAll(this.goods, Undead.undeadGoods);
     }
 
+    /**
+     * Share its goods to its master
+     */
     public void shareMaster() {
         MasterUndead.getInstance().share(this.goods);
     }
 
+    /**
+     * Print a 'u' on the map
+     * @return custom character that represents a undead
+     */
     @Override
     public char getPrintable() {
         return 'u';
     }
 
+    /**
+     * Get the name of the undead boat's image
+     * @return boat's img name
+     */
     @Override
     public String getImage() {
         return "boat_undead";
