@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.application.Platform;
 import model.entities.*;
 import model.map.Map;
 import view.DisplayController;
@@ -34,7 +35,7 @@ public class Controller {
     private Controller() { this.timer = new Timer(); this.stepTask = new Controller.StepTask(this); }
 
     /**
-     * Configure the display controller for the assiciated.
+     * Configure the display controller for the associated.
      * @param displayController
      */
     public static void setDisplayController(DisplayController displayController) {
@@ -92,7 +93,7 @@ public class Controller {
         drawMap();
     }
 
-    /// reset the simultation by rebuilding the map
+    /// reset the simulation by rebuilding the map
     public void reset() {
         reset(0);
     }
@@ -112,7 +113,7 @@ public class Controller {
         ArrayList<Master> winners = map.checkWin();
         if (winners.size() > 0) {
             if (winners.contains(MasterBritish.getInstance())) System.out.println("British Won!");
-            if (winners.contains(MasterUndead.getInstance())) System.out.println("Undeads Won!");
+            if (winners.contains(MasterUndead.getInstance())) System.out.println("Undead Won!");
             if (winners.contains(MasterPirate.getInstance())) System.out.println("Pirates Won!");
             if (winners.contains(MasterMerchant.getInstance())) System.out.println("Merchants Won!");
         }
@@ -120,7 +121,9 @@ public class Controller {
         // DRAW
         //printMap();
         drawMap();
-        displayController.fillDetails(map.getMap());
+        Platform.runLater(()->{
+            Controller.displayController.fillDetails(map.getMap());
+        });
     }
 
 
