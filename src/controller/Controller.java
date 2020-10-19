@@ -116,6 +116,7 @@ public class Controller {
             if (winners.contains(MasterUndead.getInstance())) System.out.println("Undead Won!");
             if (winners.contains(MasterPirate.getInstance())) System.out.println("Pirates Won!");
             if (winners.contains(MasterMerchant.getInstance())) System.out.println("Merchants Won!");
+            this.pause();
         }
 
         // DRAW

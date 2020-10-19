@@ -27,6 +27,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
         System.out.println("Bip Boop End");
+        Controller.getInstance().pause(); // To avoid a phantom task
 
     }
 }
