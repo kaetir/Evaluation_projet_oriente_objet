@@ -50,7 +50,7 @@ public class DisplayController {
 
     public void startSimulation(){
         System.out.println("Clic on start");
-        if (!started){
+        if (!started){ // if not started get seed
             try{
                 getSeed();
             } catch (Exception e){
@@ -58,16 +58,15 @@ public class DisplayController {
                 getSeed();
             }
             started = true;
-        }else{
-            // TODO Lancer la simulation en auto
         }
-
+        this.controller.start();
     }
 
 
     public void pause(){
         System.out.println("Clic on pause");
-        // TODO pause the simulation il in autorun.
+        started = false;
+        this.controller.pause();
     }
 
     public void step(){
@@ -77,6 +76,7 @@ public class DisplayController {
 
     public void reset(){
         System.out.println("Clic on reset");
+        started = false;
         this.controller.reset(getSeed());
     }
 

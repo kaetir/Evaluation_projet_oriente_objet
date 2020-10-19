@@ -6,9 +6,21 @@ import view.DisplayController;
 
 import java.util.ArrayList;
 
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Controller {
 
+
+    // For the auto step
+    private long timing = 1000; /// Time between every frame in ms
+    private Timer timer;
+    private boolean paused = true;
+    private boolean started = false;
+    private StepTask stepTask;
+
+
+    // For the map
     private static final int mapWidth = 20;
     private static final int mapHeight = 20;
     private static final int safeZoneWidth = 3;
@@ -17,9 +29,14 @@ public class Controller {
     private static Map map = new Map(mapWidth, mapHeight, safeZoneWidth, safeZoneHeight);
     private static DisplayController displayController ;
 
+    // For Singleton
     private static final Controller instance = new Controller();
-    private Controller() {}
+    private Controller() { this.timer = new Timer(); this.stepTask = new Controller.StepTask(this); }
 
+    /**
+     * Configure the display controller for the assiciated.
+     * @param displayController
+     */
     public static void setDisplayController(DisplayController displayController) {
         Controller.displayController = displayController;
         Controller.displayController.setController(Controller.getInstance());
@@ -28,12 +45,47 @@ public class Controller {
 
     public static Controller getInstance() {return instance; }
 
+    public boolean start(){
+        if (this.started && !this.paused) return false;
+
+        this.started = true;
+        this.paused = false;
+
+        this.timer.scheduleAtFixedRate(this.stepTask, 0, this.timing);
+        return true;
+    }
+
+    public boolean pause() {
+        if (this.paused || !this.started) return false;
+
+        this.timer.cancel();
+        this.timer = new Timer();
+        this.stepTask = new Controller.StepTask(this);
+
+        this.paused = true;
+
+        return true;
+    }
+
+    static class StepTask extends TimerTask {
+
+        private final Controller controller;
+        public StepTask(Controller controller) { this.controller = controller;}
+
+        @Override
+        public void run() {
+            this.controller.step();
+        }
+    }
 
     /**
      * Button for reseting the simulation, reset the simulation by rebuilding the map
      * @param seed for initialisation of the random
      */
     public void reset(long seed) {
+        this.pause();
+        this.paused = false;
+        this.started = false;
         Controller.seed = (int) seed;
         PseudoRandom.reset(seed);
         map =  new Map(mapWidth, mapHeight, safeZoneWidth, safeZoneHeight);
