@@ -1,10 +1,10 @@
 package model;
 
-public class Obstacle extends Token {
+public abstract class Obstacle extends Token {
     @Override
-/**
- * représentation des obstacle avec un O
- */
+    /**
+     * représentation des obstacle avec un O
+     */
     public char getPrintable() {
         return 'O';
     }
@@ -13,7 +13,5 @@ public class Obstacle extends Token {
     /**
      * Représentation des obstacle par des images
      */
-    public String getImage() {
-        return "island";
-    }
+    public abstract String getImage() ;
 }
