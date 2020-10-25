@@ -89,11 +89,11 @@
                      </children></VBox>
           </children>
         </AnchorPane>
-        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="-1.0" prefWidth="-1.0">
+        <ScrollPane fitToHeight="true" fitToWidth="true" minViewportWidth="820.0" prefHeight="-1.0" prefViewportWidth="840.0" prefWidth="-1.0">
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0">
                      <children>
-                        <Canvas id="canvas" fx:id="canvas" height="600.0" layoutX="45.0" layoutY="89.0" width="800.0" />
+                        <Canvas id="canvas" fx:id="canvas" height="600.0" layoutX="72.0" layoutY="53.0" width="800.0" AnchorPane.bottomAnchor="236.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
                      </children>
             </AnchorPane>
           </content>

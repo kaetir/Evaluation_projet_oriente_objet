@@ -68,7 +68,13 @@ public class Controller {
         return true;
     }
 
-    static class StepTask extends TimerTask {
+    public boolean finish() {
+        this.timer.cancel();
+
+        return true;
+    }
+
+        static class StepTask extends TimerTask {
 
         private final Controller controller;
         public StepTask(Controller controller) { this.controller = controller;}
@@ -124,6 +130,7 @@ public class Controller {
         drawMap();
         Platform.runLater(()->{
             Controller.displayController.fillDetails(map.getMap());
+            return;
         });
     }
 
