@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import controller.PseudoRandom;
+import model.FixObstacle;
+import model.MovingObstacle;
 import model.entities.*;
 import model.Obstacle;
 import model.Token;
@@ -90,8 +92,15 @@ public class Map {
 
                 } else {
                     tempCase = new Case();
-                    if ( PseudoRandom.getRandomNumberInRange(0, 100)  < 0.05 * 100)
-                        tempCase.setToken(new Obstacle());
+                    if ( PseudoRandom.getRandomNumberInRange(0, 100)  < 0.05 * 100){
+                        // 20% to create tornado
+                        if(PseudoRandom.getRandomNumberInRange(0,100) < 0.2 * 100){
+                            tempCase.setToken(new MovingObstacle());
+                        } else {
+                            tempCase.setToken(new FixObstacle());
+                        }
+                    }
+                        //tempCase.setToken(new Obstacle());
                 }
                 column.add(tempCase);
             }
@@ -155,13 +164,26 @@ public class Map {
     }
 
     /**
-     *
-     * @return
+     * Class for moving obstacle
+     */
+    private static class PackMovingObstacle{
+        public MovingObstacle obstacle;
+        public int x;
+        public int y;
+
+        public PackMovingObstacle (MovingObstacle obstacle, int x, int y){
+            this.obstacle = obstacle;
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    /**
+     *  List all the individual able to move this turn
+     * @return Array of every Individual with energyPoints > 0 on the map and their position
      */
     public ArrayList<PackIndividualPosition> getEveryIndividualsMoving() {
-        /*
-        Return every Individual with energyPoints > 0 on the map and their position
-         */
+
         ArrayList<PackIndividualPosition> individuals = new ArrayList<>();
 
         for (int i = 0; i < this.map.size(); i++) {
@@ -179,6 +201,28 @@ public class Map {
         return individuals;
     }
 
+    /**
+     *
+     * @return
+     */
+    public ArrayList<PackMovingObstacle> getEveryMovingObstacle(){
+
+        ArrayList<PackMovingObstacle> obstacles = new ArrayList<>();
+
+        for (int i=0; i< this.map.size(); i++){
+            for(int j=0; j< this.map.get(0).size(); j++){
+                Token token = this.map.get(i).get(j).getToken();
+
+                if(token == null) continue;
+                else if (token instanceof MovingObstacle){
+                    obstacles.add(new PackMovingObstacle((MovingObstacle) token, i, j));
+                }
+            }
+        }
+
+        return obstacles;
+    }
+
     public ArrayList<Master> checkWin() {
         /*
         Check whether masters won the simulation (Array because we could have a Tie)
@@ -194,12 +238,64 @@ public class Map {
     }
 
     public boolean step() {
+        // individuals
         ArrayList<PackIndividualPosition> individuals = this.getEveryIndividualsMoving();
+        // moving Obstacles
+        ArrayList<PackMovingObstacle> obstacles = this.getEveryMovingObstacle();
+
+        ArrayList<PackMovingObstacle> obstaclesCopy = this.getEveryMovingObstacle();
 
         if (individuals.size() == 0) return false;
 
         Collections.shuffle(individuals, PseudoRandom.getGenerator());
 
+        //for for obstacles
+        for (PackMovingObstacle ob : obstacles){
+            Direction dir = ob.obstacle.move(this.getAdjacentCases(ob.x, ob.y));
+
+
+
+            int length = dir.getLength();
+            int x = dir.getX();
+            int y = dir.getY();
+
+            int newX = ob.x;
+            int newY = ob.y;
+
+            while (length > 0) {
+                Case tmpCase = this.getCase(newX + x, newY + y);
+
+                Token tmpToken = tmpCase.getToken();
+
+                // tornado are allow to quit the map but they are destroyed after that
+                if (tmpCase == null ) obstacles.remove(ob);
+
+                if (tmpCase instanceof SafeCase) break;
+
+                //if the tornado touch an entity
+                else if(tmpToken != null){
+                    // if the tornado touch a boat
+                    if(tmpToken instanceof Individual){
+                        // TODO find something to do now
+                    }
+                    // we move one more turn any way to not stay on a entity
+                    length ++;
+                }
+                else {
+                    newX += x;
+                    newY += y;
+                    length--;
+                }
+
+            }
+
+            // Changing position
+            this.getCase(ob.x, ob.y).setToken(null);
+            this.getCase(newX, newY).setToken(ob.obstacle);
+        }
+
+
+        // for for individual
         for (PackIndividualPosition pack: individuals) {
             Direction individualDirection = pack.individual.move(this.getAdjacentCases(pack.x, pack.y));
             int length = individualDirection.getLength();
@@ -247,6 +343,7 @@ public class Map {
                 pack.individual.shareMaster();
             }
         }
+
         return true; // Step Worked
     }
 

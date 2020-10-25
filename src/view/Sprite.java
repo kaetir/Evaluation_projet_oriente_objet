@@ -16,6 +16,7 @@ public class Sprite {
         Sprite.map.put("default", "https://icon-icons.com/downloadimage.php?id=100556&root=1465/PNG/512/&file=095pileofpoo_100556.png");
         Sprite.map.put("obstacle", "obstacle.png");
         Sprite.map.put("island", "res/island.png");
+        Sprite.map.put("tornado","res/tornado.png");
         Sprite.map.put("master_pirate", "res/master_pirate.png");
         Sprite.map.put("master_british", "res/master_british.png");
         Sprite.map.put("master_undead", "res/master_undead.png");
