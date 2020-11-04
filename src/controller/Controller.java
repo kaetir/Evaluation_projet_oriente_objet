@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
 import model.entities.*;
 import model.map.Map;
 import view.DisplayController;
@@ -130,11 +131,11 @@ public class Controller {
 
         ArrayList<Master> winners = map.checkWin();
         if (winners.size() > 0) {
+            finish();
             if (winners.contains(MasterBritish.getInstance())) System.out.println("British Won!");
             if (winners.contains(MasterUndead.getInstance())) System.out.println("Undead Won!");
             if (winners.contains(MasterPirate.getInstance())) System.out.println("Pirates Won!");
             if (winners.contains(MasterMerchant.getInstance())) System.out.println("Merchants Won!");
-            finish();
         }
         if(!success && winners.size() == 0){
             System.out.println("No one won :(");
@@ -145,6 +146,33 @@ public class Controller {
         drawMap();
         Platform.runLater(()->{
             Controller.displayController.fillDetails(map.getMap());
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            if (winners.size() > 0) {
+                finish();
+                if (winners.contains(MasterBritish.getInstance())) {
+                    a.setTitle("British Won!");
+                    a.setContentText("British Won!");
+                }
+                if (winners.contains(MasterUndead.getInstance())){
+                    a.setTitle("Undead Won!");
+                    a.setContentText("Undead Won!");
+                }
+                if (winners.contains(MasterPirate.getInstance())){
+                    a.setTitle("Pirates Won!");
+                    a.setContentText("Pirates Won!");
+                }
+                if (winners.contains(MasterMerchant.getInstance())){
+                    a.setTitle("Merchants Won!");
+                    a.setContentText("Merchants Won!");
+                }
+                a.showAndWait();
+            }
+            if(!success && winners.size() == 0) {
+                a.setTitle("No winner :'(");
+                a.setContentText("No winner try another seed");
+                a.showAndWait();
+            }
+
             return;
         });
     }
