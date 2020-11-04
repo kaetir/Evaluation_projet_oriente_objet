@@ -13,8 +13,6 @@ import java.util.TimerTask;
 public class Controller {
 
 
-    // For the auto step
-    private long timing = 1000; /// Time between every frame in ms
     private Timer timer;
     private boolean paused = true;
     private boolean started = false;
@@ -46,13 +44,23 @@ public class Controller {
 
     public static Controller getInstance() {return instance; }
 
-    public boolean start(){
+    public void start(){
+        start(1000);
+    }
+
+    /**
+     *
+     * @param timing Time between every frame in ms
+     * @return
+     */
+    public boolean start(int timing){
         if (this.started && !this.paused) return false;
 
         this.started = true;
         this.paused = false;
 
-        this.timer.scheduleAtFixedRate(this.stepTask, 0, this.timing);
+        // For the auto step
+        this.timer.scheduleAtFixedRate(this.stepTask, 0, timing);
         return true;
     }
 

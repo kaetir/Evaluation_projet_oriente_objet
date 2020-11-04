@@ -137,7 +137,7 @@ public abstract class Individual extends Token {
                 // I lose
                 other.steal(this);
             } else {
-                // TODO Tie, nothing Happens
+                // Tie, nothing Happens
             }
 
         }

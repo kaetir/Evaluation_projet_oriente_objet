@@ -270,6 +270,7 @@ public class Map {
             while (length > 0) {
                 // Get the case the tornado will move on
                 Case tmpCase = this.getCase(newX + x, newY + y);
+                if (tmpCase == null) break; /// out of map
                 // get the token in the case if there is one
                 Token tmpToken = tmpCase.getToken();
 
