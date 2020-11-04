@@ -69,13 +69,19 @@ public abstract class Individual extends Token {
      * @param other individual
      */
     public void steal(Individual other) {
-        // TODO refaire cette fonction avec le pseudo aléatoire
         Collections.shuffle(other.goods, PseudoRandom.getGenerator());
         for (String good: other.goods) {
             if (!this.goods.contains(good)) {
                 this.goods.add(good); // We steal Only one good we do not own
                 return;
             }
+        }
+    }
+
+    public void looseItem(int x){
+        int y = x % this.goods.size();
+        for(int i = 0; i<y; i++){
+            this.goods.remove(0);
         }
     }
 

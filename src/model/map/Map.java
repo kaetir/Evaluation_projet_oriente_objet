@@ -3,6 +3,7 @@ package model.map;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 import controller.PseudoRandom;
 import model.FixObstacle;
@@ -268,15 +269,16 @@ public class Map {
                 Token tmpToken = tmpCase.getToken();
 
                 // tornado are allow to quit the map but they are destroyed after that
-                if (tmpCase == null ) obstacles.remove(ob);
+                if (tmpCase == null ) break;
 
                 if (tmpCase instanceof SafeCase) break;
 
                 //if the tornado touch an entity
                 else if(tmpToken != null){
-                    // if the tornado touch a boat
+                    // if the tornado touch a boat it lose a item
                     if(tmpToken instanceof Individual){
-                        // TODO find something to do now
+                        int rng = PseudoRandom.getRandomNumberInRange(0, 2);
+                        ((Individual) tmpToken).looseItem(rng);
                     }
                     // we move one more turn any way to not stay on a entity
                     length ++;
