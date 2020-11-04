@@ -306,6 +306,7 @@ public class Map {
         }
 
 
+        int movedIndividual = 0;
         // for for individual
         for (PackIndividualPosition pack: individuals) {
             Direction individualDirection = pack.individual.move(this.getAdjacentCases(pack.x, pack.y));
@@ -341,6 +342,7 @@ public class Map {
                     newX += dirX;
                     newY += dirY;
                     length--;
+                    movedIndividual++;
                 }
             }
 
@@ -355,7 +357,9 @@ public class Map {
             }
         }
 
-        return true; // Step Worked
+
+        return movedIndividual != 0; // Step Worked
+
     }
 
 

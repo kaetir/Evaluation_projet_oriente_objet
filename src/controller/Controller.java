@@ -122,7 +122,11 @@ public class Controller {
     public void step(){
         boolean success = map.step();
 
-        if (!success) System.out.println("Nobody can move anymore!");
+        if (!success){
+            System.out.println("Nobody can move anymore!");
+            finish();
+
+        }
 
         ArrayList<Master> winners = map.checkWin();
         if (winners.size() > 0) {
@@ -130,7 +134,10 @@ public class Controller {
             if (winners.contains(MasterUndead.getInstance())) System.out.println("Undead Won!");
             if (winners.contains(MasterPirate.getInstance())) System.out.println("Pirates Won!");
             if (winners.contains(MasterMerchant.getInstance())) System.out.println("Merchants Won!");
-            this.pause();
+            finish();
+        }
+        if(!success && winners.size() == 0){
+            System.out.println("No one won :(");
         }
 
         // DRAW
