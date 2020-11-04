@@ -3,13 +3,12 @@ package model.map;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
+
 
 import controller.PseudoRandom;
 import model.FixObstacle;
 import model.MovingObstacle;
 import model.entities.*;
-import model.Obstacle;
 import model.Token;
 import utils.Direction;
 
@@ -126,9 +125,9 @@ public class Map {
 
     /**
      * ArrayList allows you to table the map according to x and y coordinates, it is called in the generated map function
-     * @param x
-     * @param y
-     * @return
+     * @param x position in x on the map
+     * @param y position in y on the map
+     * @return a 3x3 array of case surrounding a case with the case in position 1x1
      */
     public ArrayList< ArrayList<Case> > getAdjacentCases(int x, int y) {
         ArrayList< ArrayList<Case> > arrayCases = new ArrayList<>();
@@ -143,9 +142,9 @@ public class Map {
 
     /**
      * It returns a certain case in the map via the x and y axis parameters
-     * @param x
-     * @param y
-     * @return
+     * @param x position in x on the map
+     * @param y position in y on the map
+     * @return null if the case is out of the map
      */
     public Case getCase(int x, int y) {
         if (x < 0 || y < 0 || x >= this.map.size() || y >= this.map.get(0).size()) return null;
@@ -168,7 +167,7 @@ public class Map {
     }
 
     /**
-     * Class for moving obstacle
+     * Class to pack a Moving Obstacle and is position
      */
     private static class PackMovingObstacle{
         public MovingObstacle obstacle;
@@ -207,7 +206,7 @@ public class Map {
 
     /**
      *
-     * @return
+     * @return all the Moving Obstacle found on the map
      */
     public ArrayList<PackMovingObstacle> getEveryMovingObstacle(){
 
@@ -227,10 +226,11 @@ public class Map {
         return obstacles;
     }
 
+    /**
+     * Check whether masters won the simulation (Array because we could have a Tie)
+     * @return ArrayList of the winners
+     */
     public ArrayList<Master> checkWin() {
-        /*
-        Check whether masters won the simulation (Array because we could have a Tie)
-         */
         ArrayList<Master> winners = new ArrayList<>();
 
         if (MasterBritish.getInstance().checkHasEveryGoods()) winners.add(MasterBritish.getInstance());
@@ -241,23 +241,25 @@ public class Map {
         return winners;
     }
 
+    /**
+     * Do a cycle
+     *     Move the moving obstacle
+     *     Move the Individuals
+     * @return return true if the step succeded (actualy always true)
+     */
     public boolean step() {
         // individuals
         ArrayList<PackIndividualPosition> individuals = this.getEveryIndividualsMoving();
         // moving Obstacles
         ArrayList<PackMovingObstacle> obstacles = this.getEveryMovingObstacle();
 
-        ArrayList<PackMovingObstacle> obstaclesCopy = this.getEveryMovingObstacle();
-
         if (individuals.size() == 0) return false;
 
         Collections.shuffle(individuals, PseudoRandom.getGenerator());
 
-        //for for obstacles
+        //for for moving obstacles
         for (PackMovingObstacle ob : obstacles){
             Direction dir = ob.obstacle.move(this.getAdjacentCases(ob.x, ob.y));
-
-
 
             int length = dir.getLength();
             int x = dir.getX();
