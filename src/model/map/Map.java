@@ -1,8 +1,7 @@
 package model.map;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 
 import controller.PseudoRandom;
@@ -227,6 +226,57 @@ public class Map {
 
     /**
      * Check whether masters won the simulation (Array because we could have a Tie)
+     * by counting the number of goods of each team
+     * @return ArrayList of the winners
+     */
+    public ArrayList<String> checkWinForfait() {
+        HashMap<String, Set<String>> goodPerTeams = new HashMap<>();
+        ArrayList<String> winners = new ArrayList<>();
+
+        for (int i=0; i< this.map.size(); i++){
+            for(int j=0; j< this.map.get(0).size(); j++){
+                Token token = this.map.get(i).get(j).getToken();
+                // != null not needed handled by instanceof
+                if(token instanceof Individual){ // master and boat
+                    for (String good: ((Individual) token).getGoods()) {
+                        if(token instanceof Undead){
+                            goodPerTeams.computeIfAbsent("Undead", k -> new HashSet<>());
+                            goodPerTeams.get("Undead").add(good);
+                        }
+                        if(token instanceof British){
+                            goodPerTeams.computeIfAbsent("British", k -> new HashSet<>());
+                            goodPerTeams.get("British").add(good);
+                        }
+                        if(token instanceof Merchant){
+                            goodPerTeams.computeIfAbsent("Merchant", k -> new HashSet<>());
+                            goodPerTeams.get("Merchant").add(good);
+                        }
+                        if(token instanceof Pirate){
+                            goodPerTeams.computeIfAbsent("Pirate", k -> new HashSet<>());
+                            goodPerTeams.get("Pirate").add(good);
+                        }
+                    }
+
+                }
+            }
+        }
+        int winnerMax = 0;
+        for (HashMap.Entry<String, Set<String>> t: goodPerTeams.entrySet()) {
+            System.out.println(t.getKey() + " : " + Integer.toString(t.getValue().size()));
+            if(winnerMax == t.getValue().size()){
+                winners.add(t.getKey());
+            }
+            if(winnerMax < t.getValue().size()){
+                winnerMax = t.getValue().size();
+                winners.clear();
+                winners.add(t.getKey());
+            }
+        }
+        return winners;
+    }
+
+    /**
+     * Check whether masters won the simulation (Array because we could have a Tie)
      * @return ArrayList of the winners
      */
     public ArrayList<Master> checkWin() {
@@ -239,6 +289,7 @@ public class Map {
 
         return winners;
     }
+
 
     /**
      * Do a cycle

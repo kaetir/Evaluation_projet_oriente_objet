@@ -168,12 +168,11 @@ public class Controller {
                 a.showAndWait();
             }
             if(!success && winners.size() == 0) {
+                ArrayList<String> winnersForfait = map.checkWinForfait();
                 a.setTitle("No winner :'(");
-                a.setContentText("No winner try another seed");
+                a.setContentText("Gagnant par default \n" + String.join(", ", winnersForfait));
                 a.showAndWait();
             }
-
-            return;
         });
     }
 

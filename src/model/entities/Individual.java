@@ -213,4 +213,8 @@ public abstract class Individual extends Token {
             return className[className.length-1] + " EP=" + String.format("%03d", energyPoints) + " goods=" + goods ;
         return "EP=" + String.format("%03d", energyPoints) + " goods=" + goods ;
     }
+
+    public ArrayList<String> getGoods() {
+        return goods;
+    }
 }
