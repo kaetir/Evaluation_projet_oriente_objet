@@ -6,7 +6,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.*;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import model.map.*;
 
@@ -21,7 +23,11 @@ public class DisplayController {
     private boolean started = false;
     private Controller controller;
 
+    @FXML
+    private Slider timingSlider;
 
+    @FXML
+    private Label timerDisplay;
 
     @FXML
     private ListView<String> Detail_list;
@@ -31,6 +37,16 @@ public class DisplayController {
 
     @FXML
     private TextField seedText;
+
+    public void initialize() {
+
+        timingSlider.setValue(1000);
+        timingSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            timerDisplay.setText("Timer :" +Double.toString(newValue.intValue()));
+        });
+
+    }
+
 
     public Integer getSeed() {
         try{
@@ -59,7 +75,9 @@ public class DisplayController {
             }
             started = true;
         }
-        this.controller.start();
+        int timming = (int) timingSlider.getValue();
+        System.out.println(Integer.toString(timming));
+        this.controller.start(timming);
     }
 
 
