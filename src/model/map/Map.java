@@ -215,9 +215,8 @@ public class Map {
         for (int i=0; i< this.map.size(); i++){
             for(int j=0; j< this.map.get(0).size(); j++){
                 Token token = this.map.get(i).get(j).getToken();
-
-                if(token == null) continue;
-                else if (token instanceof MovingObstacle){
+                // != null not needed handled by instanceof
+                if(token instanceof MovingObstacle){
                     obstacles.add(new PackMovingObstacle((MovingObstacle) token, i, j));
                 }
             }
@@ -245,7 +244,7 @@ public class Map {
      * Do a cycle
      *     Move the moving obstacle
      *     Move the Individuals
-     * @return return true if the step succeded (actualy always true)
+     * @return return true if the step succeeded (actually always true)
      */
     public boolean step() {
         // individuals
@@ -269,26 +268,27 @@ public class Map {
             int newY = ob.y;
 
             while (length > 0) {
+                // Get the case the tornado will move on
                 Case tmpCase = this.getCase(newX + x, newY + y);
-
+                // get the token in the case if there is one
                 Token tmpToken = tmpCase.getToken();
 
-                // tornado are allow to quit the map but they are destroyed after that
-                if (tmpCase == null ) break;
-
-                if (tmpCase instanceof SafeCase) break;
+                // Tornado don't go in safe zone
+                if (tmpCase instanceof SafeCase)  break;
 
                 //if the tornado touch an entity
-                else if(tmpToken != null){
+                if(tmpToken != null){
                     // if the tornado touch a boat it lose a item
                     if(tmpToken instanceof Individual){
                         int rng = PseudoRandom.getRandomNumberInRange(0, 2);
                         ((Individual) tmpToken).looseItem(rng);
                     }
                     // we move one more turn any way to not stay on a entity
-                    length ++;
-                }
-                else {
+                    // NOOOOOOO DONNNNTTTTT YOU JUSTE CREATE NEARLY INFINITE LOOP
+                    // length ++;
+                    newX += x;
+                    newY += y;
+                } else {
                     newX += x;
                     newY += y;
                     length--;
@@ -296,9 +296,12 @@ public class Map {
 
             }
 
-            // Changing position
-            this.getCase(ob.x, ob.y).setToken(null);
-            this.getCase(newX, newY).setToken(ob.obstacle);
+            if (length == 0){ // check if the position to move is correct or stay in place
+                // TODO may induce bug were it moved and did things but stay at the same place
+                // Changing position
+                this.getCase(ob.x, ob.y).setToken(null);
+                this.getCase(newX, newY).setToken(ob.obstacle);
+            }
         }
 
 
