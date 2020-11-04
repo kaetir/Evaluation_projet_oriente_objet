@@ -152,6 +152,9 @@ public class Map {
         return this.map.get(x).get(y);
     }
 
+    /**
+     * Class which can contain a pair of two elements: An Individual and a 2d Position
+     */
     private static class PackIndividualPosition {
         public Individual individual;
         public int x;

@@ -1,5 +1,9 @@
 package utils;
 
+/**
+ * Class which can contain a pair of two elements: A length and a 2d Position
+ * Useful for generating Directions for entities
+ */
 public class Direction {
 
     private int x;
