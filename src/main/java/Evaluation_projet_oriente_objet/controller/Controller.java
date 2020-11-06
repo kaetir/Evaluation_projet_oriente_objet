@@ -61,7 +61,7 @@ public class Controller {
         this.paused = false;
 
         // For the auto step
-        this.timer.scheduleAtFixedRate(this.stepTask, 0, timing);
+        this.timer.schedule(this.stepTask, 0, timing);
         return true;
     }
 

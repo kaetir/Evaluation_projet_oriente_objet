@@ -2,6 +2,7 @@ package main.java.Evaluation_projet_oriente_objet.model.map;
 
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 import main.java.Evaluation_projet_oriente_objet.controller.PseudoRandom;
@@ -21,6 +22,8 @@ public class Map {
     static public final Direction merchantSafeDirection = new Direction(1, 1);
 
     private ArrayList<ArrayList<Case>> map;
+
+    private ArrayList<Master> masters = new ArrayList<>();
 
     /**
      * This function generateMap is meant to generate a map via different parameters
@@ -46,11 +49,19 @@ public class Map {
             height = 4 * safeZoneHeight;
         }
 
+        masters.add(MasterBritish.getInstance());
+        masters.add(MasterUndead.getInstance());
+        masters.add(MasterPirate.getInstance());
+        masters.add(MasterMerchant.getInstance());
+
+
         // Reset Masters
-        MasterBritish.getInstance().reset();
-        MasterUndead.getInstance().reset();
-        MasterPirate.getInstance().reset();
-        MasterMerchant.getInstance().reset();
+        for (Master m: masters ) {
+            m.reset();
+        }
+
+
+
 
         // Generating Map
         for (int i = 0; i < width; i++) {
@@ -233,45 +244,9 @@ public class Map {
         HashMap<String, Set<String>> goodPerTeams = new HashMap<>();
         ArrayList<String> winners = new ArrayList<>();
 
-        for (int i=0; i< this.map.size(); i++){
-            for(int j=0; j< this.map.get(0).size(); j++){
-                Token token = this.map.get(i).get(j).getToken();
-                // != null not needed handled by instanceof
-                if(token instanceof Individual){ // master and boat
-                    for (String good: ((Individual) token).getGoods()) {
-                        if(token instanceof Undead){
-                            goodPerTeams.computeIfAbsent("Undead", k -> new HashSet<>());
-                            goodPerTeams.get("Undead").add(good);
-                        }
-                        if(token instanceof British){
-                            goodPerTeams.computeIfAbsent("British", k -> new HashSet<>());
-                            goodPerTeams.get("British").add(good);
-                        }
-                        if(token instanceof Merchant){
-                            goodPerTeams.computeIfAbsent("Merchant", k -> new HashSet<>());
-                            goodPerTeams.get("Merchant").add(good);
-                        }
-                        if(token instanceof Pirate){
-                            goodPerTeams.computeIfAbsent("Pirate", k -> new HashSet<>());
-                            goodPerTeams.get("Pirate").add(good);
-                        }
-                    }
+        // TODO redo the function to count the master with the most good
+        //return masters.stream().map(master -> master.getGoods().size()).max();
 
-                }
-            }
-        }
-        int winnerMax = 0;
-        for (HashMap.Entry<String, Set<String>> t: goodPerTeams.entrySet()) {
-            System.out.println(t.getKey() + " : " + Integer.toString(t.getValue().size()));
-            if(winnerMax == t.getValue().size()){
-                winners.add(t.getKey());
-            }
-            if(winnerMax < t.getValue().size()){
-                winnerMax = t.getValue().size();
-                winners.clear();
-                winners.add(t.getKey());
-            }
-        }
         return winners;
     }
 
@@ -280,14 +255,7 @@ public class Map {
      * @return ArrayList of the winners
      */
     public ArrayList<Master> checkWin() {
-        ArrayList<Master> winners = new ArrayList<>();
-
-        if (MasterBritish.getInstance().checkHasEveryGoods()) winners.add(MasterBritish.getInstance());
-        if (MasterUndead.getInstance().checkHasEveryGoods()) winners.add(MasterUndead.getInstance());
-        if (MasterPirate.getInstance().checkHasEveryGoods()) winners.add(MasterPirate.getInstance());
-        if (MasterMerchant.getInstance().checkHasEveryGoods()) winners.add(MasterMerchant.getInstance());
-
-        return winners;
+        return (ArrayList<Master>) masters.stream().filter(Master::checkHasEveryGoods).collect(Collectors.toList());
     }
 
 
@@ -336,8 +304,6 @@ public class Map {
                         ((Individual) tmpToken).looseItem(rng);
                     }
                     // we move one more turn any way to not stay on a entity
-                    // NOOOOOOO DONNNNTTTTT YOU JUSTE CREATE NEARLY INFINITE LOOP
-                    // length ++;
                     newX += x;
                     newY += y;
                 } else {
@@ -407,7 +373,6 @@ public class Map {
                 pack.individual.shareMaster();
             }
         }
-
 
         return movedIndividual != 0; // Step Worked
 

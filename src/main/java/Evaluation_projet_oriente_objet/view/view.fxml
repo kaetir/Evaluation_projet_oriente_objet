@@ -74,7 +74,7 @@
                      <children>
                         <Button mnemonicParsing="false" onAction="#startSimulation" text="Start" />
                         <Label fx:id="timerDisplay" text="Timer :" />
-                        <Slider fx:id="timingSlider" min="10.0" max="5000.0" majorTickUnit="2490" showTickLabels="true" showTickMarks="true" />
+                        <Slider fx:id="timingSlider" min="50.0" max="5000.0" majorTickUnit="2450" showTickLabels="true" showTickMarks="true" />
                         <Button mnemonicParsing="false" onAction="#pause" text="Pause" />
                         <Button mnemonicParsing="false" onAction="#step" text="Step" />
                         <Button mnemonicParsing="false" onAction="#reset" text="Reset" />
