@@ -16,14 +16,44 @@ import main.java.Evaluation_projet_oriente_objet.utils.Direction;
 public class Map {
 
     static private final int minimumSafeZone = 2;
-    static public final Direction britishSafeDirection = new Direction(-1, -1);
-    static public final Direction undeadSafeDirection = new Direction(1, -1);
-    static public final Direction pirateSafeDirection = new Direction(-1, 1);
-    static public final Direction merchantSafeDirection = new Direction(1, 1);
+
+    static private final Direction britishSafeDirection = new Direction(-1, -1);
+    static private final Direction undeadSafeDirection = new Direction(1, -1);
+    static private final Direction pirateSafeDirection = new Direction(-1, 1);
+    static private final Direction merchantSafeDirection = new Direction(1, 1);
 
     private ArrayList<ArrayList<Case>> map;
 
     private ArrayList<Master> masters = new ArrayList<>();
+
+    /**
+     * Safe British Direction Getter
+     * @return a Copy of the Direction
+     */
+    public static Direction getBritishSafeDirection() {
+        return new Direction(britishSafeDirection.getX(), britishSafeDirection.getY());
+    }
+    /**
+     * Safe Undead Direction Getter
+     * @return a Copy of the Direction
+     */
+    public static Direction getUndeadSafeDirection() {
+        return new Direction(undeadSafeDirection.getX(), undeadSafeDirection.getY());
+    }
+    /**
+     * Safe Pirate Direction Getter
+     * @return a Copy of the Direction
+     */
+    public static Direction getPirateSafeDirection() {
+        return new Direction(pirateSafeDirection.getX(), pirateSafeDirection.getY());
+    }
+    /**
+     * Safe Merchant Direction Getter
+     * @return a Copy of the Direction
+     */
+    public static Direction getMerchantSafeDirection() {
+        return new Direction(merchantSafeDirection.getX(), merchantSafeDirection.getY());
+    }
 
     /**
      * This function generateMap is meant to generate a map via different parameters

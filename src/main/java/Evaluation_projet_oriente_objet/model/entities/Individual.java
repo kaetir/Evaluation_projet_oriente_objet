@@ -174,10 +174,10 @@ public abstract class Individual extends Token {
         // Getting back to the safe Zone, Dumb
         // if energy low or all the goods are mine
         if (energyPoints <= Individual.defaultEnergyPoints * 0.2 || this.checkHasEveryGoods()) {
-            if (this instanceof British) direction = Map.britishSafeDirection;
-            else if (this instanceof Undead) direction = Map.undeadSafeDirection;
-            else if (this instanceof Pirate) direction = Map.pirateSafeDirection;
-            else if (this instanceof Merchant) direction = Map.merchantSafeDirection;
+            if (this instanceof British) direction = Map.getBritishSafeDirection();
+            else if (this instanceof Undead) direction = Map.getUndeadSafeDirection();
+            else if (this instanceof Pirate) direction = Map.getPirateSafeDirection();
+            else if (this instanceof Merchant) direction = Map.getMerchantSafeDirection();
         }
 
         if (direction == null) {
