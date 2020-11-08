@@ -2,6 +2,9 @@ package main.java.Evaluation_projet_oriente_objet.model.entities;
 
 import java.util.Collections;
 
+/**
+ * Pirate Tokens Class
+ */
 public class Pirate extends Bad {
     public static final String[] pirateGoods = {"Rhum", "Absinth", "Grog"};
 

@@ -2,6 +2,9 @@ package main.java.Evaluation_projet_oriente_objet.model.entities;
 
 import java.util.Collections;
 
+/**
+ * Undead Tokens Class
+ */
 public class Undead extends Bad {
     public static final String[] undeadGoods = {"Ashen Skulls", "Tridents", "Souls"};
 

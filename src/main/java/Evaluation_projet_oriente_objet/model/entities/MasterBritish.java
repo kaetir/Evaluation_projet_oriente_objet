@@ -2,6 +2,9 @@ package main.java.Evaluation_projet_oriente_objet.model.entities;
 
 import java.util.Collections;
 
+/**
+ * British's Master Singleton
+ */
 public class MasterBritish extends British implements Master {
 
     private static final MasterBritish instance = new MasterBritish();

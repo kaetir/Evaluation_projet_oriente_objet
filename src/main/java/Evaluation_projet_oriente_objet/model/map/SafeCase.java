@@ -2,10 +2,12 @@ package main.java.Evaluation_projet_oriente_objet.model.map;
 
 import javafx.scene.paint.Color;
 
+/**
+ * Safe Case where individuals are safe
+ */
 public class SafeCase extends Case {
 
-    public SafeCase() {
-    }
+    public SafeCase() {}
 
     /**
      * Redefine the function of the Case according to every team

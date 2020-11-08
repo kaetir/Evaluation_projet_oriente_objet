@@ -17,7 +17,9 @@ import main.java.Evaluation_projet_oriente_objet.model.entities.Individual;
 
 import java.util.ArrayList;
 
-
+/**
+ * Class controlling the simulation controller and the view
+ */
 public class DisplayController {
 
     private boolean started = false;
@@ -47,7 +49,10 @@ public class DisplayController {
 
     }
 
-
+    /**
+     * Get Inputed seed
+     * @return the seed
+     */
     public Integer getSeed() {
         try{
             return Integer.parseInt( seedText.getText());
@@ -56,14 +61,24 @@ public class DisplayController {
         }
     }
 
+    /**
+     * Generate a seed and put it into the text box
+     */
     public void genRandomSeed(){
         seedText.setText(String.valueOf(PseudoRandom.getRandomNumberInRange(1,123465789)));
     }
 
+    /**
+     * Set the controller to controller
+     * @param controller
+     */
     public void setController(Controller controller) {
         this.controller = controller;
     }
 
+    /**
+     * Start the simulation
+     */
     public void startSimulation(){
         System.out.println("Clic on start");
         if (!started){ // if not started get seed
@@ -80,24 +95,36 @@ public class DisplayController {
         this.controller.start(timming);
     }
 
-
+    /**
+     * Pause the simulation
+     */
     public void pause(){
         System.out.println("Clic on pause");
         started = false;
         this.controller.pause();
     }
 
+    /**
+     * Do just one step (a Turn) in the simulation
+     */
     public void step(){
         System.out.println("Clic on step");
         controller.step();
     }
 
+    /**
+     * Reset Simulation
+     */
     public void reset(){
         System.out.println("Clic on reset");
         started = false;
         this.controller.reset(getSeed());
     }
 
+    /**
+     * Draw map to javaFX window
+     * @param map map to draw
+     */
     public void drawMap(Map map){
         GraphicsContext g = canvas.getGraphicsContext2D();
 

@@ -2,7 +2,9 @@ package main.java.Evaluation_projet_oriente_objet.controller;
 
 import java.util.Random;
 
-
+/**
+ * Singleton giving the pseudo-random numbers
+ */
 public class PseudoRandom {
 
     private static long seed = 0 ;
@@ -26,22 +28,31 @@ public class PseudoRandom {
     }
 
     /**
-     * Get a random number from the generator
+     * Get a pseudo-random number from the generator
      * @return return a random number in int
      */
     public static int getRandom(){
         return generator.nextInt();
     }
 
+    /**
+     * Get the generator, useful for shuffle() functions
+     * @return the random generator
+     */
     public static Random getGenerator() {
         return generator;
     }
 
+    /**
+     * Get a pseudo-random number between min and max
+     * @param min minimum number
+     * @param max maximum number
+     * @return the pseudo-random number
+     */
     public static int getRandomNumberInRange(int min, int max) {
         if (min >= max) {
             throw new IllegalArgumentException("max must be greater than min");
         }
         return PseudoRandom.generator.nextInt((max - min) + 1) + min;
     }
-
 }

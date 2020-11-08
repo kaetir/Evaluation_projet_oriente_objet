@@ -2,6 +2,9 @@ package main.java.Evaluation_projet_oriente_objet.model.entities;
 
 import java.util.Collections;
 
+/**
+ * Merchant Tokens Class
+ */
 public class Merchant extends Good {
     public static final String[] merchantGoods = {"Wood", "Clothes", "Tea"};
 

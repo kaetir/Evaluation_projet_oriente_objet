@@ -2,6 +2,9 @@ package main.java.Evaluation_projet_oriente_objet.model.entities;
 
 import java.util.Collections;
 
+/**
+ * British Tokens Class
+ */
 public class British extends Good {
     public static final String[] britishGoods = {"Gold", "Silver", "Copper"};
 

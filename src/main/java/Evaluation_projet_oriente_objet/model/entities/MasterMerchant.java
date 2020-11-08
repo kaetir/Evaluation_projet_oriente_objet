@@ -2,6 +2,9 @@ package main.java.Evaluation_projet_oriente_objet.model.entities;
 
 import java.util.Collections;
 
+/**
+ * Merchant's Master Singleton
+ */
 public class MasterMerchant extends Merchant implements Master {
 
     private static final MasterMerchant instance = new MasterMerchant();

@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Singleton controlling the Map and simulation
+ */
 public class Controller {
 
 
@@ -43,6 +46,10 @@ public class Controller {
         Controller.displayController.drawMap(map);
     }
 
+    /**
+     * Get the singleton instance of the controller
+     * @return the singleton
+     */
     public static Controller getInstance() {return instance; }
 
     public void start(){
@@ -50,7 +57,7 @@ public class Controller {
     }
 
     /**
-     *
+     * Start simulation with a timing step time
      * @param timing Time between every frame in ms
      * @return
      */
@@ -65,6 +72,10 @@ public class Controller {
         return true;
     }
 
+    /**
+     * Pause the simulation
+     * @return a pause success
+     */
     public boolean pause() {
         if (this.paused || !this.started) return false;
 
@@ -77,17 +88,27 @@ public class Controller {
         return true;
     }
 
+    /**
+     * Finish the simulation
+     * @return a finish success
+     */
     public boolean finish() {
         this.timer.cancel();
 
         return true;
     }
 
-        static class StepTask extends TimerTask {
+    /**
+     * A subclass which permit a timer creation
+     */
+    static class StepTask extends TimerTask {
 
         private final Controller controller;
         public StepTask(Controller controller) { this.controller = controller;}
 
+        /**
+         * Execute Timer
+         */
         @Override
         public void run() {
             this.controller.step();
@@ -113,13 +134,23 @@ public class Controller {
         reset(0);
     }
 
+    /**
+     * Print map in console
+     */
     public void printMap(){
         Controller.map.printMapASCII();
     }
+
+    /**
+     * Draw map with JavaFX
+     */
     public void drawMap(){
         Controller.displayController.drawMap(Controller.map);
     }
 
+    /**
+     * Do a step in the simulation and check whether a group won
+     */
     public void step(){
         boolean success = map.step();
 
@@ -175,6 +206,4 @@ public class Controller {
             }
         });
     }
-
-
 }

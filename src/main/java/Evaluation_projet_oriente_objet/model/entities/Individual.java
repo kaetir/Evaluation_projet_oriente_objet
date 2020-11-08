@@ -9,6 +9,9 @@ import main.java.Evaluation_projet_oriente_objet.utils.Direction;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Class which describe an Individual
+ */
 public abstract class Individual extends Token {
 
     private static final int defaultEnergyPoints = 100;
@@ -78,6 +81,10 @@ public abstract class Individual extends Token {
         }
     }
 
+    /**
+     * Delete x goods from the current individual
+     * @param x How Many goods should be deleted
+     */
     public void looseItem(int x){
         int y = x % this.goods.size();
         for(int i = 0; i<y; i++){
@@ -216,6 +223,10 @@ public abstract class Individual extends Token {
         return "EP=" + String.format("%03d", energyPoints) + " goods=" + goods ;
     }
 
+    /**
+     * Goods Getter
+     * @return goods List
+     */
     public ArrayList<String> getGoods() {
         return goods;
     }

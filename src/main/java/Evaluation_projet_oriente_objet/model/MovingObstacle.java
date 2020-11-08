@@ -6,6 +6,9 @@ import main.java.Evaluation_projet_oriente_objet.utils.Direction;
 
 import java.util.ArrayList;
 
+/**
+ * Class for Obstacle which can move
+ */
 public class MovingObstacle extends Obstacle{
 
     Direction lastDir;

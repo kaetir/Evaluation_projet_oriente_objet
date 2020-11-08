@@ -2,6 +2,9 @@ package main.java.Evaluation_projet_oriente_objet.model.entities;
 
 import java.util.Collections;
 
+/**
+ * Pirate's Master Singleton
+ */
 public class MasterPirate extends Pirate implements Master {
 
     private static final MasterPirate instance = new MasterPirate();

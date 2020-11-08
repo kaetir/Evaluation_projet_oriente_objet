@@ -1,4 +1,6 @@
 package main.java.Evaluation_projet_oriente_objet.model.entities;
 
-public abstract class Good extends Individual {
-}
+/**
+ * Class from which inherit good guys, (British and Merchants)
+ */
+public abstract class Good extends Individual {}

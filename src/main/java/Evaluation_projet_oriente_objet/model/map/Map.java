@@ -12,7 +12,9 @@ import main.java.Evaluation_projet_oriente_objet.model.entities.*;
 import main.java.Evaluation_projet_oriente_objet.model.Token;
 import main.java.Evaluation_projet_oriente_objet.utils.Direction;
 
-
+/**
+ * Class Which contain the Map
+ */
 public class Map {
 
     static private final int minimumSafeZone = 2;
@@ -84,14 +86,10 @@ public class Map {
         masters.add(MasterPirate.getInstance());
         masters.add(MasterMerchant.getInstance());
 
-
         // Reset Masters
         for (Master m: masters ) {
             m.reset();
         }
-
-
-
 
         // Generating Map
         for (int i = 0; i < width; i++) {
@@ -245,7 +243,7 @@ public class Map {
     }
 
     /**
-     *
+     * Get a List containing Pairs of every Moving Obstacle and their position on the map
      * @return all the Moving Obstacle found on the map
      */
     public ArrayList<PackMovingObstacle> getEveryMovingObstacle(){
@@ -345,13 +343,11 @@ public class Map {
             }
 
             if (length == 0){ // check if the position to move is correct or stay in place
-                // TODO may induce bug were it moved and did things but stay at the same place
                 // Changing position
                 this.getCase(ob.x, ob.y).setToken(null);
                 this.getCase(newX, newY).setToken(ob.obstacle);
             }
         }
-
 
         int movedIndividual = 0;
         // for for individual
@@ -408,8 +404,9 @@ public class Map {
 
     }
 
-
-    
+    /**
+     * Print the Map and its differents obstacles, individuals in the Console with a ASCII Theme
+     */
     public void printMapASCII() {
         /*
             Print Map with ASCII Characters
@@ -440,6 +437,10 @@ public class Map {
         System.out.println("-");
     }
 
+    /**
+     * Map Matrix getter
+     * @return The main map attribute
+     */
     public ArrayList<ArrayList<Case>> getMap() {
         return map;
     }

@@ -2,6 +2,9 @@ package main.java.Evaluation_projet_oriente_objet.model.entities;
 
 import java.util.Collections;
 
+/**
+ * Undead's Master Singleton
+ */
 public class MasterUndead extends Undead implements Master {
 
     private static final MasterUndead instance = new MasterUndead();
